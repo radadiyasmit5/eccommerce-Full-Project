@@ -7,6 +7,7 @@ import { createproduct } from '../../../functions/product'
 import { catagorieslist } from '../../../functions/Catagory'
 import { subcatagoryfindbyid } from '../../../functions/Sub'
 import { FileUpload } from '../../../componant/forms/FileUpload'
+import { LoadingOutlined } from '@ant-design/icons'
 const initialState = {
     title: '',
     description: '',
@@ -34,6 +35,7 @@ export const CreateProducts = () => {
 
     useEffect(() => {
         loadcatagories()
+
     }, [])
 
 
@@ -64,6 +66,8 @@ export const CreateProducts = () => {
             setloading(false)
 
         })
+
+
 
     }
 
@@ -96,9 +100,9 @@ export const CreateProducts = () => {
                     <AdminNav />
                 </div>
                 <div className='col'>
-                    <div className='lable'> Create new Product </div>
+                    <div className='lable'> {loading ? <LoadingOutlined className="text-danger X-large" /> : <h4>Product Create</h4>} </div>
                     <div className='p-3'>
-                        <FileUpload />
+                        <FileUpload value={value} setvalue={setvalue} setloading={setloading} />
                     </div>
                     <br />
                     {loading ? <h4 className='text text-danger'> Loading... </h4> : ""}

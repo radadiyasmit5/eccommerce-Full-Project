@@ -8,3 +8,11 @@ export const createproduct = async (product, authtoken) => {
     })
 }
 
+export const removeproduct = async (title, images, authtoken) => {
+    return await axios.delete(`${process.env.REACT_APP_API}/removeproduct/${title}`,
+        {
+            headers: {
+                authtoken: authtoken
+            }
+        })
+}

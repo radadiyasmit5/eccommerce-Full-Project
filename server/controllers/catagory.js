@@ -1,6 +1,6 @@
 const { json } = require("body-parser")
 const { default: slugify } = require("slugify")
-const { Catagory } = require("../models/catagory")
+const { Category } = require("../models/catagory")
 
 
 
@@ -8,7 +8,7 @@ exports.create = async (req, res) => {
     try {
         const name = req.body.catagory
         console.log(req.body)
-        const catagorycreate = await new Catagory({ name, slug: slugify(name) }).save()
+        const catagorycreate = await new Category({ name, slug: slugify(name) }).save()
 
         res.json({ catagorycreate, message: "catagory created successfully" })
     }
@@ -19,7 +19,7 @@ exports.create = async (req, res) => {
 
 }
 exports.list = async (req, res) => {
-    const catagorylist = await Catagory.find({}).sort({ name: 1 }).exec()
+    const catagorylist = await Category.find({}).sort({ name: 1 }).exec()
     res.json(catagorylist)
 }
 exports.update = async (req, res) => {
@@ -27,7 +27,7 @@ exports.update = async (req, res) => {
         
   
         const name = req.body.name
-        await Catagory.findOneAndUpdate({ slug: req.params.slug }, { name, slug: slugify(name) }, { new: true }, (err, result) => {
+    await Category.findOneAndUpdate({ slug: req.params.slug }, { name, slug: slugify(name) }, { new: true }, (err, result) => {
             if (err) {
               throw err;
             } else {
@@ -49,7 +49,7 @@ exports.remove = async (req, res) => {
 
     try {
         const slug = req.params.slug
-        const catagoryremove = await Catagory.findOneAndDelete({ slug })
+        const catagoryremove = await Category.findOneAndDelete({ slug })
         res.json(catagoryremove)
     } catch (error) {
         res.json("cannot delete catagory")
@@ -57,6 +57,6 @@ exports.remove = async (req, res) => {
 }
 exports.read = async (req, res) => {
     const slug = req.params.slug
-    const catagoryread = await Catagory.findOne({ slug }).exec()
+    const catagoryread = await Category.findOne({ slug }).exec()
     res.json(catagoryread)
 }

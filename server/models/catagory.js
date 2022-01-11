@@ -22,4 +22,4 @@ const catagoryschema = new mongoose.Schema({
 },
     { timestamps: true })
 
-    exports.Catagory= mongoose.model("Catagory",catagoryschema)
+exports.Category = mongoose.model("Category", catagoryschema)

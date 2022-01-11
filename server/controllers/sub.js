@@ -1,6 +1,6 @@
 const { Schema } = require("mongoose")
 const { default: slugify } = require("slugify")
-const { Catagory } = require("../models/catagory")
+
 const { Sub } = require("../models/sub")
 const ObjectId = Schema.ObjectId
 

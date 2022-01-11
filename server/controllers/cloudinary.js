@@ -11,7 +11,7 @@ exports.upload = async (req, res) => {
 
         let result = await cloudinary.uploader.upload(req.body.image, {
             public_id: `${Date.now()}`,
-            resource_typr: "auto"
+            resource_type: "auto"
 
         })
 
@@ -28,9 +28,12 @@ exports.remove = async (req, res) => {
 
     let image_id = req.body.public_id
 
-    cloudinary.uploader.destroy(image_id, (err, result) => {
+    cloudinary.v2.uploader.destroy(image_id, (err, result) => {
+
         if (err)
-            return res.json({ success: false, err })
-        res.send("ok")
+        { return res.status(400).json({ success: false, err }) }
+        else {
+            return res.send(result)
+        }
     })
 }

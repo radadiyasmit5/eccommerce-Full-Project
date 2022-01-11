@@ -15,6 +15,7 @@ import { auth } from './firebase'
 
 //dispatch from redux
 import { useDispatch, useSelector } from 'react-redux'
+
 import { Forgotpassword } from './pages/auth/Forgotpassword'
 import { currentuser } from './functions/Axios'
 import History from './pages/user/History'
@@ -28,6 +29,8 @@ import { Updatecatagory } from './pages/admin/catagory/Updatecatagory'
 import { Subcreate } from './pages/admin/sub/Subcreate'
 import { Subupdate } from './pages/admin/sub/Subupdate'
 import { CreateProducts } from './pages/admin/products/CreateProducts'
+import { ListofAllProducts } from './pages/admin/products/ListofAllProducts'
+
 export const App = ({ history, match }) => {
   const dispatch = useDispatch();
   const { user } = useSelector(state => ({ ...state }))
@@ -80,6 +83,7 @@ export const App = ({ history, match }) => {
         <Adminroute exact path="/admin/subcatagory" component={Subcreate} />
         <Adminroute exact path="/admin/subcatagory/:slug" component={Subupdate} />
         <Adminroute exact path="/admin/product" component={CreateProducts} />
+        <Adminroute exact path="/admin/products" component={ListofAllProducts} />
       </Switch>
 
     </>
