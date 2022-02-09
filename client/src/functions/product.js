@@ -16,3 +16,19 @@ export const removeproduct = async (title, images, authtoken) => {
             }
         })
 }
+
+
+export const listallproductsbyslug = async (slug) => {
+    return await axios.get(`${process.env.REACT_APP_API}/products/getproductbyslug/${slug}`)
+}
+
+
+export const updateproduct = async (slug, product, authtoken) => {
+    return await axios.put(`${process.env.REACT_APP_API}/products/updateproduct/${slug}`, product, {
+        authtoken: authtoken
+    })
+}
+
+export const getproductbycount = async (count) => {
+    return await axios.get(`${process.env.REACT_APP_API}/products/${count}`)
+}

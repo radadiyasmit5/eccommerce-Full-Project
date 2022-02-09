@@ -51,4 +51,37 @@ exports.removeproduct = async (req, res) => {
         return res.status(400).json("product delete failed")
 
     }
+
+}
+
+exports.listproductsbyslug = async (req, res) => {
+
+    console.log(req.params.slug);
+    const findone = product.findOne({ slug: req.params.slug }).populate("category").populate('subs').exec().then(response => {
+        if (!response) {
+            return res.status(400).json({ data: "product not found" })
+        }
+        return res.json(response)
+
+    });
+
+
+}
+
+exports.update = (req, res) => {
+    if (req.body.title) {
+        req.body.slug = slugify(req.body.title)
+    }
+    try {
+        const updatedproduct = product.findOneAndUpdate({ slug: req.params.slug }, req.body, { new: true }, (err, response) => {
+            console.log(response);
+
+            res.json(response)
+        }).exec()
+
+    } catch (error) {
+        res.status(400).json(error.message)
+    }
+
+
 }

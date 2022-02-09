@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import ProductsForm from '../../../componant/forms/ProductsForm'
+import ProductsForm from '../../../componant/forms/ProductsCreateForm'
 import { AdminNav } from '../../../componant/nav/AdminNav'
 import { createproduct } from '../../../functions/product'
 import { catagorieslist } from '../../../functions/Catagory'
@@ -76,6 +76,7 @@ export const CreateProducts = () => {
     const handlechange = (e) => {
         e.preventDefault()
         setvalue({ ...value, [e.target.name]: e.target.value })
+
     }
 
     const handlecatagories = (e) => {
@@ -86,7 +87,7 @@ export const CreateProducts = () => {
         })
 
         setshowsub(true)
-        console.log(showsub);
+        console.log(showsub); 
     }
 
 

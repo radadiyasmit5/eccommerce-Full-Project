@@ -30,6 +30,7 @@ import { Subcreate } from './pages/admin/sub/Subcreate'
 import { Subupdate } from './pages/admin/sub/Subupdate'
 import { CreateProducts } from './pages/admin/products/CreateProducts'
 import { ListofAllProducts } from './pages/admin/products/ListofAllProducts'
+import { UpdateProduct } from './pages/admin/products/UpdateProduct'
 
 export const App = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -84,6 +85,7 @@ export const App = ({ history, match }) => {
         <Adminroute exact path="/admin/subcatagory/:slug" component={Subupdate} />
         <Adminroute exact path="/admin/product" component={CreateProducts} />
         <Adminroute exact path="/admin/products" component={ListofAllProducts} />
+        <Adminroute exact path="/admin/updateproduct/:slug" component={UpdateProduct} />
       </Switch>
 
     </>

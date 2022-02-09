@@ -5,7 +5,7 @@ import { AdminNav } from '../../../componant/nav/AdminNav'
 import { removeproduct } from '../../../functions/product';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-export const ListofAllProducts = () => {
+export const ListofAllProducts = ({ history }) => {
 
     const [products, setproducts] = useState([]);
     const [loading, setloading] = useState(false)
@@ -31,6 +31,8 @@ export const ListofAllProducts = () => {
             })
         }
     }
+
+
     const loadproducts = () => {
         setloading(true)
         axios.get(`${process.env.REACT_APP_API}/products/100`).then(res => {
@@ -42,6 +44,7 @@ export const ListofAllProducts = () => {
             console.log(err);
         })
     }
+
 
     return (
         <div className="container-fluid">
