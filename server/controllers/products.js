@@ -85,3 +85,60 @@ exports.update = (req, res) => {
 
 
 }
+//without pagination
+// exports.list = async (req, res) => {
+
+//     try {
+//         const { sort, order, limit } = req.body
+//         const products = await product.find({})
+//             .populate("category")
+//             .populate("subs")
+//             .sort([[sort, order]])
+//             .limit(limit)
+//             .exec().then(response => {
+//                 if (!response) {
+//                     res.status(400).json("error while getting products")
+//                 }
+//                 else {
+//                     console.log(response);
+//                     res.json(response)
+//                 }
+//             })
+//     } catch (error) {
+//         res.status(400).json("error while getting a product")
+//     }
+// }
+
+//with pagination
+exports.list = async (req, res) => {
+
+    try {
+        const { sort, order, page } = req.body
+        currentpage = page || 1
+        perpage = 3
+        const products = await product.find({})
+            .skip((currentpage - 1) * 3)
+            .populate("category")
+            .populate("subs")
+            .sort([[sort, order]])
+            .limit(perpage)
+            .exec().then(response => {
+                if (!response) {
+                    res.status(400).json("error while fetching products")
+                }
+                else {
+
+                    res.json(response)
+                }
+            })
+    } catch (error) {
+        res.status(400).json("error while getting a product")
+    }
+}
+
+
+exports.totalproduct = async (req, res) => {
+    let totalproducts = await product.find({}).estimatedDocumentCount().exec()
+    res.json(totalproducts)
+
+}

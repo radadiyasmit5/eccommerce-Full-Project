@@ -5,7 +5,7 @@ const Jumbotron = ({ text }) => {
     return (
         < Typewriter
             options={{
-                strings: ['new arrivals', 'best sellers'],
+                strings: text,
                 autoStart: true,
                 loop: true
             }}

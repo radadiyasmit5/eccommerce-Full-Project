@@ -4,7 +4,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux';
 
 import { toast } from 'react-toastify';
-import { removeproduct } from '../../functions/product';
+import { removeproduct } from '../../functions/Product';
 import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
