@@ -3,6 +3,7 @@ import Jumbotron from '../componant/cards/Jumbotron';
 
 import NewArrivals from '../componant/home/NewArrivals';
 import BestSeller from '../componant/home/BestSeller'
+import  {Catagorylist}  from '../componant/catagory/Catagorylist'; 
 export const Home = () => {
 
 
@@ -24,8 +25,10 @@ export const Home = () => {
             </div>
 
             <BestSeller />
+            <Catagorylist/>
 
         </>
+        
     )
 }
 

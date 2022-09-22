@@ -1,0 +1,5 @@
+build website:
+      image:node:16-alpine
+      script:
+          - npm install
+          - npm run

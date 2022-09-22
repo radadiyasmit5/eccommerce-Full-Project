@@ -27,7 +27,7 @@ const Listofproduct = ({ product }) => {
             </li>)}
             {subs && <li class="list-group-item">
                 subcategory {" "}
-                {subs && subs.map((s) => <Link to={`/subcategory/${slug}`} className='label label-default label-pill float-end px-4'> {s.name}</Link>)
+                {subs && subs.map((s) => <Link to={`/subcategory/${slug}`} className='label label-default label-pill float-end 'style={{paddingLeft:"13px"}}> {s.name}</Link>)
                 }
             </li>}
             <li class="list-group-item">

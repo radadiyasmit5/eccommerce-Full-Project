@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 import UserProductCard from '../../componant/cards/UserProductCard';
-import { getproducts } from '../../functions/Product'
+import { getproducts } from '../../functions/product'
 import { LoadingCard } from "../../componant/cards/LoadingCard"
 import { Pagination } from 'antd';
-import { totalproductcount } from '../../functions/Product';
+import { totalproductcount } from '../../functions/product';
+import { Link } from 'react-router-dom';
 export const NewArrivals = () => {
 
     const [page, setpage] = useState(1);
@@ -32,6 +33,7 @@ export const NewArrivals = () => {
 
     const gettotalproduct = () => {
         totalproductcount().then(res => {
+      console.log(res.data)
             settotalproducts(res.data)
 
         })
@@ -48,7 +50,9 @@ export const NewArrivals = () => {
                         products.map(product => (
 
                             <div className='col-md-4' key={product._id}>
-                                <UserProductCard product={product} />
+                                  <Link to={`/product/${product.slug}`}>
+                                <UserProductCard product={product}  />
+                                </Link>
                             </div>
                         ))
                     }
@@ -58,7 +62,8 @@ export const NewArrivals = () => {
             </div>
             <div className='row'>
                 <nav className='col-md-4 offset-md-4 text-center pt-5 p-3'>
-                    <Pagination total={(totalproducts / 3) * 10} current={page} onChange={(value) => { setpage(value) }} />
+                    <Pagination total={(totalproducts /3 )*10} current={page} onChange={(value) => { setpage(value) }} />
+                    
                 </nav>
             </div>
         </>

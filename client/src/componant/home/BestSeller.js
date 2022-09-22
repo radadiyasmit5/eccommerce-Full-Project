@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
 import UserProductCard from '../../componant/cards/UserProductCard';
-import { getproducts } from '../../functions/Product'
+import { getproducts } from '../../functions/product'
 import { LoadingCard } from "../../componant/cards/LoadingCard"
 import { Pagination } from 'antd';
-import { totalproductcount } from '../../functions/Product';
+import { totalproductcount } from '../../functions/product';
+import { Link, useHistory } from 'react-router-dom';
 export const BestSeller = () => {
 
     const [page, setpage] = useState(1);
     const [totalproducts, settotalproducts] = useState(0);
     const [products, setproducts] = useState([]);
     const [loading, setloading] = useState(false);
+ const history = useHistory()
     useEffect(() => {
 
         gettotalproduct()
@@ -45,10 +47,14 @@ export const BestSeller = () => {
                 {loading ? <LoadingCard count={3} /> : <div className='row' >
                     {
                         products.map(product => (
-
-                            <div className='col-md-4' key={product._id}>
-                                <UserProductCard product={product} />
+                            // onClick={history.push(`/product/${product.slug}`)}
+                            
+                            <div className='col-md-4' key={product._id} >
+                              <Link to={`/product/${product.slug}`}>
+                                <UserProductCard product={product}  />
+                                </Link>
                             </div>
+                            
                         ))
                     }
 

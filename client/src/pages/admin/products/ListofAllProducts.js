@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { ProductCard } from '../../../componant/cards/ProductCard'
 import { AdminNav } from '../../../componant/nav/AdminNav'
-import { removeproduct } from '../../../functions/Product';
+import { removeproduct } from '../../../functions/product';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 export const ListofAllProducts = ({ history }) => {

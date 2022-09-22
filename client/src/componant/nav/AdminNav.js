@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-export const AdminNav = () => {
+export const    AdminNav = () => {
     return (
         <nav>
             <ul className='nav flex-column'>

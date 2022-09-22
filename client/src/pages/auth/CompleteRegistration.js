@@ -56,17 +56,21 @@ export const Register = () => {
        
  
       authfunction(idtockenresult.token).then((result) => {
-        console.log(result)
+        console.log(result);
+      if (result) {
+        
+      
         dispatch({ 
           type: "LOGGED_IN_USER",
           payload: {
-            name: result.data.finduser.name,
-            email: result.data.finduser.email,
+            name: result.data.name,
+            email: result.data.email,
             token: idtockenresult.token,
-            _id: result.data.finduser._id,
-            role: result.data.finduser.role
+            _id: result.data._id,
+            role: result.data.role
           }
         })
+      }
       })
 
       //redirect
