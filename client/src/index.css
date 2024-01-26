@@ -1,0 +1,5 @@
+.slider img{
+    height: 500px;
+    object-fit: cover;
+    margin-top: 20px;
+}
