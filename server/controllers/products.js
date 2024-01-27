@@ -2,7 +2,8 @@ const express = require('express');
 const { model } = require('mongoose');
 const Catagory = require("../models/catagory")
 const slugify = require('slugify');
-const product = require("../models/products")
+const product = require("../models/products");
+const User = require('../models/user');
 
 exports.create = async (req, res) => {
 
@@ -77,7 +78,7 @@ exports.update = (req, res) => {
             console.log(response);
 
             res.json(response)
-        }).exec()
+        })
 
     } catch (error) {
         res.status(400).json(error.message)
@@ -140,5 +141,73 @@ exports.totalproduct = async (req, res) => {
 
     let totalproducts = await product.find({}).estimatedDocumentCount().exec()
     res.json(totalproducts)
+
+}
+
+exports.relatedProducts = async (req, res) => {
+    let currentProduct = await product.findById({ _id: req.params.id }).exec()
+
+    let relatedProducts = await product.find({
+        _id: { $ne: currentProduct._id },
+        category: currentProduct.category
+    }).populate('category').populate('subs').limit(3)
+    res.json(relatedProducts)
+}
+
+
+exports.startrating = async (req, res) => {
+    const productIdfromReq = req.params.id
+    const { stars } = req.body
+    const useremail = req.user.email
+    let user;
+    let productToUpdate
+    try {
+        user = await User.findOne({ email: useremail }).exec()
+    }
+    catch {
+        return res.status(500).send('Server encountered some issue fetching the userinfo , please investigate')
+    }
+    try {
+        productToUpdate = await product.findById({ _id: productIdfromReq })
+    }
+    catch {
+        return res.status(500).send('Server encountered some issue fetching the product , please investigate')
+    }
+
+    const existingRatingsArray = productToUpdate.ratings.find((ele) => {
+
+        return ele.postedBy.toString() == user._id.toString()
+    })
+
+    let updateProductwithRating
+
+    // if user haven't rated this product yet
+
+    if (!existingRatingsArray) {
+        updateProductwithRating = await product.findOneAndUpdate({ _id: productIdfromReq }, {
+            $push: { ratings: { star: stars, postedBy: user._id } }
+        }, { new: true }).exec()
+    }
+    // if user already have a start rating on this product then update that rating
+    if (existingRatingsArray) {
+        try {
+            updateProductwithRating = await product.updateOne({ ratings: { $elemMatch: existingRatingsArray } },
+                {
+                    $set: { "ratings.$.star": stars }
+                },
+                { new: true }).exec()
+
+        } catch {
+            return res.status(500).send("Server encountered some issue updating the star rating")
+        }
+    }
+    updatedproduct = await product.findById({ _id: productIdfromReq }).exec()
+    const sortUserRating = updatedproduct.ratings.find((ele) => {
+
+        return ele.postedBy.toString() == user._id.toString()
+    })
+    updateProductwithRating = sortUserRating
+    console.log(updateProductwithRating);
+    res.json(updateProductwithRating)
 
 }

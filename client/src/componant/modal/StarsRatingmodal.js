@@ -5,7 +5,7 @@ import { useState } from "react";
 import { StarOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-export const StarsRatingmodal = ({ children }) => {
+export const StarsRatingmodal = ({ children,updateStartRatings }) => {
   const [visibility, setvisibility] = useState(false);
 
   let history = useHistory();
@@ -35,7 +35,8 @@ export const StarsRatingmodal = ({ children }) => {
         centered
         onOk={() => {
           setvisibility(false);
-          toast.success("thank you for rating , this will be updated soon");
+          toast.success("Thank you for rating , this will be updated soon");
+          updateStartRatings()
         }}
         visible={visibility}
         onCancel={() => setvisibility(false)}
