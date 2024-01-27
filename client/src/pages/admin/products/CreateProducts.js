@@ -53,7 +53,6 @@ export const CreateProducts = () => {
 
         createproduct(value, user.token).then((res) => {
             // toast.success("product created successfully")
-            console.log(res);
             setloading(false)
 
             window.alert(`${res.data.title} is created `)
@@ -66,13 +65,7 @@ export const CreateProducts = () => {
             setloading(false)
 
         })
-
-
-
     }
-
-    console.log(value);
-
     const handlechange = (e) => {
         e.preventDefault()
         setvalue({ ...value, [e.target.name]: e.target.value })
@@ -87,7 +80,6 @@ export const CreateProducts = () => {
         })
 
         setshowsub(true)
-        console.log(showsub); 
     }
 
 

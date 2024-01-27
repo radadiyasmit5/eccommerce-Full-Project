@@ -51,8 +51,7 @@ export const UpdateProduct = ({ match, history }) => {
 
     const handlecatagories = (e) => {
         e.preventDefault()
-        console.log(e.target.value);
-        console.log(value.category._id);
+     
         setvalue({ ...value, subs: [] })
         setclickedcategory(e.target.value)
         subcatagoryfindbyid(e.target.value).then(res => {
@@ -60,7 +59,6 @@ export const UpdateProduct = ({ match, history }) => {
         })
 
         if (value.category._id === e.target.value) {
-            console.log("clicked");
             loadproductsvalue(match.params.slug)
         }
 
@@ -99,7 +97,6 @@ export const UpdateProduct = ({ match, history }) => {
 
         updateproduct(match.params.slug, value, user.authtoken).then(res => {
             setloading(false)
-            console.log(res);
             toast.success(`${res.data.title} updated`)
             history.push("/admin/dashboard")
 

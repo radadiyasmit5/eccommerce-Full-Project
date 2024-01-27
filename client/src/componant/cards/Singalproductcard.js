@@ -19,7 +19,6 @@ import { Ratingaverage } from "../../functions/Ratingaverage";
 const Singalproductcard = ({ product, handlechange, star,updateStartRatings }) => {
   const { TabPane } = Tabs;
   const { images, description, title, slug, _id } = product;
-  console.log(images);
   return (
     <div className="row">
       <div className="col-md-7">
@@ -61,7 +60,7 @@ const Singalproductcard = ({ product, handlechange, star,updateStartRatings }) =
               <ShoppingCartOutlined className=" text-warning" />
             </Link>,
             <HeartOutlined className=" text-danger" />,
-            <StarsRatingmodal updateStartRatings={updateStartRatings}>
+            <StarsRatingmodal updateStartRatings={updateStartRatings} rating={star}>
               <StarsRating
                 name={_id}
                 size={30}

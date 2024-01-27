@@ -18,7 +18,6 @@ export const Register = () => {
 
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("")
-  console.log(window.localStorage.getItem("email"));
   useEffect(() => {
     setEmail(window.localStorage.getItem("email"))
   }, [])
@@ -37,7 +36,6 @@ export const Register = () => {
     }
     try {
       auth.signInWithEmailLink(email, window.location.href).then((async result => {
-        console.log(result);
         if (result.user.emailVerified) {
           //remove user from local storage
           window.localStorage.removeItem("email")
@@ -48,7 +46,6 @@ export const Register = () => {
 
           //set redux
           authfunction(idtockenresult.token).then((result) => {
-            console.log(result);
             if (result) {
               dispatch({
                 type: "LOGGED_IN_USER",

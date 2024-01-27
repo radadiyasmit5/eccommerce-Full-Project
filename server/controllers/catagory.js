@@ -7,7 +7,6 @@ const { Category } = require("../models/catagory")
 exports.create = async (req, res) => {
     try {
         const name = req.body.catagory
-        console.log(req.body)
         const catagorycreate = await new Category({ name, slug: slugify(name) }).save()
 
         res.json({ catagorycreate, message: "catagory created successfully" })

@@ -43,9 +43,7 @@ export const Subcreate = () => {
 
     const loadsubcatagory = () => subcatagorieslist().then((res) => {
 
-
         setsubcatagorydata(res.data)
-        console.log(res.data);
     })
 
     const loadsubcatagorybyid = (id) => {
@@ -58,8 +56,6 @@ export const Subcreate = () => {
 
     let subdata;
     if (id == "") { subdata = subcatagorydata } else { subdata = subcatagorydatasortedbycatagory }
-    console.log(subdata);
-
 
     const handlesubmit = (e) => {
 
