@@ -10,7 +10,6 @@ exports.create = async (req, res) => {
         const name = req.body.subcatagory
         
         const id=req.body.id
-        console.log(req.body)
         const subcatagorycreate = await new Sub({ name, slug: slugify(name),parent:id }).save()
 
         res.json({ subcatagorycreate, message: "subcatagory created successfully" })
@@ -31,7 +30,6 @@ exports.update = async (req, res) => {
 
     const name = req.body.name
     const parent = req.body.parent
-    console.log(name, parent);
     await Sub.findOneAndUpdate({ slug: req.params.slug }, { name, slug: slugify(name),parent }, { new: true }, (err, result) => {
         if (err) {
             throw err;
@@ -73,7 +71,6 @@ exports.findbyid = async (req, res) => {
          
          
             res.json(response)
-        console.log(response);
         }
         }).clone().catch((err)=>{console.log(err);})
 

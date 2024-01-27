@@ -1,5 +1,4 @@
 const axios = require("axios");
-console.log(process.env.REACT_APP_API);
 
 export const createproduct = async (product, authtoken) => {
 
@@ -52,7 +51,6 @@ export const getproducts = async (sort, order, page) => {
 };
 
 export const totalproductcount = async () => {
-  console.log(await axios.get(`${process.env.REACT_APP_API}/totalproducts/`).then((data)=>{console.log(data)}).catch((err)=>{console.log(err);}));
   return await axios.get(`${process.env.REACT_APP_API}/totalproducts/`);
 };
 
@@ -71,4 +69,10 @@ export const starrating = async (productid, stars, token) => {
 export const related_products = async (productid) => {
   return await axios.get(
     `${process.env.REACT_APP_API}/products/related/${productid}`)
+}
+
+export const getProductsByCategory = async (productName) =>{
+  return await axios.get(
+    `${process.env.REACT_APP_API}/products/getProductsByCategory/${productName}`
+  )
 }

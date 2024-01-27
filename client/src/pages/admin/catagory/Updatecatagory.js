@@ -26,7 +26,6 @@ export const Updatecatagory = ({ history, match }) => {
         catagoryupdate(name, match.params.slug, user.token).then((result) => {
             setloading(false)
             setname('')
-            console.log(result)
             toast.success(result.data.message)
             history.push("/admin/catagory")
         }).catch((err) => {

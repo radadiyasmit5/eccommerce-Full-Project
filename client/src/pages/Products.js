@@ -18,7 +18,6 @@ const Products = ({ match }) => {
 
   useEffect(() => {
     getproductbyslug(match.params.slug);
-
   }, [match.params.slug]);
 
 

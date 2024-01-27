@@ -32,6 +32,7 @@ import { CreateProducts } from './pages/admin/products/CreateProducts'
 import { ListofAllProducts } from './pages/admin/products/ListofAllProducts'
 import { UpdateProduct } from './pages/admin/products/UpdateProduct'
 import Products from './pages/Products'
+import CategoryPage from './pages/category/CategoryPage'
 
 export const App = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -44,7 +45,6 @@ export const App = ({ history, match }) => {
 
         currentuser(idToken.token)
           .then((result) => {
-            console.log(result)
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
@@ -88,6 +88,7 @@ export const App = ({ history, match }) => {
         <Adminroute exact path="/admin/products" component={ListofAllProducts} />
         <Adminroute exact path="/admin/updateproduct/:slug" component={UpdateProduct} />
         <Route exact path="/product/:slug" component={Products} />
+        <Route exact path="/category/:slug" component={CategoryPage} />
       </Switch>
 
     </>

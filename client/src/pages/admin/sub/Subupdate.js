@@ -45,7 +45,6 @@ export const Subupdate = ({ history, match }) => {
             subcatagoryupdate(name, id, match.params.slug, user.token).then((result) => {
                 setloading(false)
                 setname('')
-                console.log(result)
                 toast.success(result.data.message)
                 history.push("/admin/subcatagory")
             }).catch((err) => {

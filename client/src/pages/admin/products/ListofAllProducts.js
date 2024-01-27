@@ -37,7 +37,6 @@ export const ListofAllProducts = ({ history }) => {
         setloading(true)
         axios.get(`${process.env.REACT_APP_API}/products/100`).then(res => {
             setloading(false)
-            console.log(res.data);
             setproducts(res.data)
 
         }).catch(err => {

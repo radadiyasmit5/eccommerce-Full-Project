@@ -20,6 +20,9 @@ export const Home = () => {
             </div>
 
             <BestSeller />
+            <div className='  jumbotron p-3 text-center display-4  h4  mb-5 mt-5 bg-light'   >
+                Categories
+            </div>
             <Catagorylist />
 
         </>

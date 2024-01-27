@@ -33,7 +33,6 @@ export const NewArrivals = () => {
 
     const gettotalproduct = () => {
         totalproductcount().then(res => {
-            console.log(res.data)
             settotalproducts(res.data)
 
         })

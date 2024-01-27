@@ -13,7 +13,6 @@ const Adminroute = ({ element, ...rest }) => {
   useEffect(() => {
      if (user && user.token) {
         currentAdmin(user.token).then((response) => {
-            console.log(response);
             setok(true)
         }).catch((err) => {
             console.log(err);

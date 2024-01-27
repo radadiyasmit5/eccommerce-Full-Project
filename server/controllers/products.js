@@ -9,7 +9,6 @@ exports.create = async (req, res) => {
 
 
     try {
-        console.log(req.body, "reqbody");
         req.body.slug = slugify(req.body.title)
         const createproduct = await new product(req.body).save();
 
@@ -57,7 +56,6 @@ exports.removeproduct = async (req, res) => {
 
 exports.listproductsbyslug = async (req, res) => {
 
-    console.log(req.params.slug);
     const findone = product.findOne({ slug: req.params.slug }).populate("category").populate('subs').exec().then(response => {
         if (!response) {
             return res.status(400).json({ data: "product not found" })
@@ -207,7 +205,16 @@ exports.startrating = async (req, res) => {
         return ele.postedBy.toString() == user._id.toString()
     })
     updateProductwithRating = sortUserRating
-    console.log(updateProductwithRating);
     res.json(updateProductwithRating)
 
+}
+
+exports.getproductsByCategory = async (req, res) => {
+
+
+    const CategoryName = req.params.categoryName
+    const category = await Catagory.Category.findOne({ name: CategoryName }).exec()
+
+    const Products = await product.find({ category }).exec()
+    res.json(Products)
 }
