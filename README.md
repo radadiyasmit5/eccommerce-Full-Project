@@ -21,3 +21,5 @@
 * to start the client applicaiton run npm start 
 
 * to start node server run node index.js (to avoid restarting server evrytime install nodemon package)
+
+* used cloudinary to save photos

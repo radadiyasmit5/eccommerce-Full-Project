@@ -33,7 +33,7 @@ export const NewArrivals = () => {
 
     const gettotalproduct = () => {
         totalproductcount().then(res => {
-      console.log(res.data)
+            console.log(res.data)
             settotalproducts(res.data)
 
         })
@@ -45,25 +45,26 @@ export const NewArrivals = () => {
 
 
             <div className='container'>
-                {loading ? <LoadingCard count={3} /> : <div className='row' >
-                    {
-                        products.map(product => (
+                {loading ? (<LoadingCard count={3} />) :
+                    <div className='row' >
+                        {
+                            products.map(product => (
 
-                            <div className='col-md-4' key={product._id}>
-                                  <Link to={`/product/${product.slug}`}>
-                                <UserProductCard product={product}  />
-                                </Link>
-                            </div>
-                        ))
-                    }
+                                <div className='col-md-4' key={product._id}>
+                                    <Link to={`/product/${product.slug}`}>
+                                        <UserProductCard product={product} />
+                                    </Link>
+                                </div>
+                            ))
+                        }
 
-                </div>}
+                    </div>}
 
             </div>
             <div className='row'>
                 <nav className='col-md-4 offset-md-4 text-center pt-5 p-3'>
-                    <Pagination total={(totalproducts /3 )*10} current={page} onChange={(value) => { setpage(value) }} />
-                    
+                    <Pagination total={(totalproducts / 3) * 10} current={page} onChange={(value) => { setpage(value) }} />
+
                 </nav>
             </div>
         </>

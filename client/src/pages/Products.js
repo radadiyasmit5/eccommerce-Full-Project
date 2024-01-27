@@ -13,11 +13,12 @@ const Products = ({ match }) => {
   const [products, setproducts] = useState([]);
   const [star, setstar] = useState(0);
   const [relatedproduct, setrelatedproduct] = useState("");
+  const [productId, setsetProductId] = useState('')
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     getproductbyslug(match.params.slug);
- 
+
   }, [match.params.slug]);
 
 
@@ -27,15 +28,14 @@ const Products = ({ match }) => {
       const existingratingobj = products.ratings.find(
         (p) => user._id.toString() === p.postedBy.toString()
       );
-
-      existingratingobj && setstar(existingratingobj.star);
+      existingratingobj && setstar(existingratingobj?.star);
     }
-  });
+
+  }, [user, products]);
 
   const getproductbyslug = (slug) => {
     listallproductsbyslug(slug).then((res) => {
       setproducts(res.data);
-
       related_products(res.data._id).then((res) => {
         setrelatedproduct(res.data);
       });
@@ -43,24 +43,28 @@ const Products = ({ match }) => {
   };
 
   const handlechange = (newrating, name) => {
-    starrating(name, newrating, user.token).then((res) => {
-      getproductbyslug(match.params.slug);
-    });
+    setsetProductId(name);
     setstar(newrating);
   };
-
+  const updateStartRatings = async () => {
+    starrating(productId, star, user.token).then((res) => {
+      setstar(res.data.star)
+      getproductbyslug(match.params.slug);
+    });
+  }
   return (
     <>
-      <div className="column md-5 mb-5">
-        <div>
+      <div className="container-fluid">
+        <div className="row pt-4">
           <Singalproductcard
             product={products}
             handlechange={handlechange}
+            updateStartRatings={updateStartRatings}
             star={star}
           />
         </div>
         <div className="row">
-          <div className="column md-5 mb-5">
+          <div className="col text-center pt-5 pb-5">
             <hr />
             <h4 className="text-center">Related products</h4>
           </div>
@@ -69,11 +73,11 @@ const Products = ({ match }) => {
         <div className="row pb-5">
           {relatedproduct.length
             ? relatedproduct.map((r) => (
-                <div className="col">
-                  <UserProductCard product={r} />
-                </div>
-              ))
-            : "No products"}
+              <div className="col">
+                <UserProductCard product={r} />
+              </div>
+            ))
+            : (<div className="text-center col">No Products Found</div>)}
         </div>
       </div>
       <hr />

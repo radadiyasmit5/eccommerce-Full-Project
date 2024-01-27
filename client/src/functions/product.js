@@ -57,9 +57,8 @@ export const totalproductcount = async () => {
 };
 
 export const starrating = async (productid, stars, token) => {
-  console.log(token);
-  return await axios.post(
-    `${process.env.REACT_APP_API}/setstarrating/${productid}`,
+  return await axios.put(
+    `${process.env.REACT_APP_API}/products/setstarrating/${productid}`,
     { stars },
     {
       headers: {

@@ -50,7 +50,6 @@ let intended = history.location.state
       console.log(result);
       authfunction(idtokenresult.token)
         .then((result) => {
-       
           dispatch({
             type: "LOGGED_IN_USER",
             payload: {
@@ -65,6 +64,7 @@ let intended = history.location.state
         })
         .catch((err) => {
           console.log(err);
+          toast.error('user not found in database, Please Sign up');
         });
 
       console.log(idtokenresult.token);
