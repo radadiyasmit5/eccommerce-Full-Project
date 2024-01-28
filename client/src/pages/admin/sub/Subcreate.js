@@ -47,7 +47,6 @@ export const Subcreate = () => {
     })
 
     const loadsubcatagorybyid = (id) => {
-        console.log(id);
         subcatagoryfindbyid(id).then((res) => {
             setsubcatagorydatasortedbycatagory(res.data)
 

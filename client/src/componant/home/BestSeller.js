@@ -12,7 +12,7 @@ export const BestSeller = () => {
     const [totalproducts, settotalproducts] = useState(0);
     const [products, setproducts] = useState([]);
     const [loading, setloading] = useState(false);
- const history = useHistory()
+    const history = useHistory()
     useEffect(() => {
 
         gettotalproduct()
@@ -40,21 +40,18 @@ export const BestSeller = () => {
 
     return (
         <>
-
-
-
             <div className='container pb-5'>
                 {loading ? <LoadingCard count={3} /> : <div className='row' >
                     {
                         products.map(product => (
                             // onClick={history.push(`/product/${product.slug}`)}
-                            
+
                             <div className='col-md-4' key={product._id} >
-                              <Link to={`/product/${product.slug}`}>
-                                <UserProductCard product={product}  />
+                                <Link to={`/product/${product.slug}`}>
+                                    <UserProductCard product={product} />
                                 </Link>
                             </div>
-                            
+
                         ))
                     }
 
@@ -66,7 +63,10 @@ export const BestSeller = () => {
 
                 <nav className='col-md-4 offset-md-4 text-center pt-5 p-3'>
 
-                    <Pagination total={(totalproducts / 3) * 10} current={page} onChange={(value) => { setpage(value) }} />
+                    <Pagination total={(totalproducts / 3) * 10} current={page} onChange={(value) => {
+
+                        setpage(value)
+                    }} />
                 </nav>
             </div>
         </>

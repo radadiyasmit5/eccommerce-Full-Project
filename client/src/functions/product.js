@@ -71,14 +71,20 @@ export const related_products = async (productid) => {
     `${process.env.REACT_APP_API}/products/related/${productid}`)
 }
 
-export const getProductsByCategory = async (productName) =>{
+export const getProductsByCategory = async (productName) => {
   return await axios.get(
     `${process.env.REACT_APP_API}/products/getProductsByCategory/${productName}`
   )
 }
 
-export const getProductsBySubCategory = async (productName) =>{
+export const getProductsBySubCategory = async (productName) => {
   return await axios.get(
     `${process.env.REACT_APP_API}/products/getProductsBySubCategory/${productName}`
+  )
+}
+export const getProductsBysearchQuery = async (searchQuery) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/product/search/filters`, { searchQuery }
+
   )
 }

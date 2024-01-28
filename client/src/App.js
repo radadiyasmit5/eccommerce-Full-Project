@@ -34,6 +34,7 @@ import { UpdateProduct } from './pages/admin/products/UpdateProduct'
 import Products from './pages/Products'
 import CategoryPage from './pages/category/CategoryPage'
 import SubCategory from './pages/subcategory/SubCategory'
+import Shop from './pages/shop/Shop'
 
 export const App = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ export const App = ({ history, match }) => {
         <Route exact path="/product/:slug" component={Products} />
         <Route exact path="/category/:slug" component={CategoryPage} />
         <Route exact path="/subs/:slug" component={SubCategory} />
+        <Route exact path="/shop" component={Shop} />
       </Switch>
 
     </>

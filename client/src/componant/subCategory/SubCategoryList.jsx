@@ -30,7 +30,9 @@ const SubCategoryList = () => {
     }
 
     return (
-        <div>{showSubCategories()}</div>
+        <div className='container'>
+            <div className='row'>{showSubCategories()}</div>
+        </div>
     )
 }
 

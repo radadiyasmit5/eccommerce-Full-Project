@@ -228,3 +228,15 @@ exports.getproductsBySubCategory = async (req, res) => {
     res.json(Products)
 }
 
+
+const handleQuery = async (req, res, searchQuery) => {
+    const products = await product.find({ $text: { $search: searchQuery.toString() } }).populate('category', "_id name").populate('subs', '_id name').exec()
+    res.json(products)
+}
+exports.searchFilters = async (req, res) => {
+    const { searchQuery } = req.body;
+    if (searchQuery) {
+        await handleQuery(req, res, searchQuery)
+    }
+
+}
