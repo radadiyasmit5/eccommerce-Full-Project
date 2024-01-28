@@ -218,3 +218,13 @@ exports.getproductsByCategory = async (req, res) => {
     const Products = await product.find({ category }).exec()
     res.json(Products)
 }
+exports.getproductsBySubCategory = async (req, res) => {
+
+
+    const SubCategoryName = req.params.subcategoryName
+    const subcategory = await Catagory.Category.findOne({ name: SubCategoryName }).exec()
+
+    const Products = await product.find({ subcategory }).exec()
+    res.json(Products)
+}
+

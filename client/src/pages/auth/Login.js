@@ -31,9 +31,9 @@ let intended = history.location.state
         history.push(intended)
     }
      else if (result.data.finduser.role === "admin") {
-      history.push("/admin/dashboard");
+      history.push("/");
     } else {
-      history.push("/user/dashboard");
+      history.push("/");
     }
   };
 

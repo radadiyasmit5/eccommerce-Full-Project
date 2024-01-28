@@ -76,3 +76,9 @@ export const getProductsByCategory = async (productName) =>{
     `${process.env.REACT_APP_API}/products/getProductsByCategory/${productName}`
   )
 }
+
+export const getProductsBySubCategory = async (productName) =>{
+  return await axios.get(
+    `${process.env.REACT_APP_API}/products/getProductsBySubCategory/${productName}`
+  )
+}
