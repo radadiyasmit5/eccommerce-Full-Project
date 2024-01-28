@@ -1,0 +1,8 @@
+stages:
+  - build
+
+build Image:
+  stage: build
+  script:
+    - echo "Building the image..."
+    - docker build -t my-react-app .
