@@ -11,7 +11,7 @@ const { log } = require("console");
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: '*'
 }));
 app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: "2mb" }));
