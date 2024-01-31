@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 export const createproduct = async (product, authtoken) => {
+
   return await axios.post(
     `${process.env.REACT_APP_API}/createproduct`,
     product,
@@ -54,17 +55,36 @@ export const totalproductcount = async () => {
 };
 
 export const starrating = async (productid, stars, token) => {
-  console.log(token);
-  return await axios.post(
-    `${process.env.REACT_APP_API}/setstarrating/${productid}`,
-    {stars} ,
-    { headers: {
-      authtoken:token
-  }}
+  return await axios.put(
+    `${process.env.REACT_APP_API}/products/setstarrating/${productid}`,
+    { stars },
+    {
+      headers: {
+        authtoken: token
+      }
+    }
   );
 };
 
-export const related_products = async (productid)=>{
+export const related_products = async (productid) => {
   return await axios.get(
     `${process.env.REACT_APP_API}/products/related/${productid}`)
+}
+
+export const getProductsByCategory = async (productName) => {
+  return await axios.get(
+    `${process.env.REACT_APP_API}/products/getProductsByCategory/${productName}`
+  )
+}
+
+export const getProductsBySubCategory = async (productName) => {
+  return await axios.get(
+    `${process.env.REACT_APP_API}/products/getProductsBySubCategory/${productName}`
+  )
+}
+export const getProductsBysearchQuery = async ({searchQuery,priceRange}) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/product/search/filters`, { Query: { SearchText: searchQuery,priceRange:priceRange } }
+
+  )
 }

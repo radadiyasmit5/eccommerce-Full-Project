@@ -8,16 +8,16 @@ export const    AdminNav = () => {
                     <Link className='nav-link' to="/admin/dashboard">dashboard</Link>
                 </li>
                 <li className='nav-item'>
-                    <Link className='nav-link' to="/admin/product">Product</Link>
+                    <Link className='nav-link' to="/admin/product">Create Product</Link>
                 </li>
                 <li className='nav-item'>
                     <Link className='nav-link' to="/admin/products">Products</Link>
                 </li>
                 <li className='nav-item'>
-                    <Link className='nav-link' to="/admin/catagory">Catagory</Link>
+                    <Link className='nav-link' to="/admin/catagory">Create Catagory</Link>
                 </li>
                 <li className='nav-item'>
-                    <Link className='nav-link' to="/admin/subcatagory"> Sub Catagory</Link>
+                    <Link className='nav-link' to="/admin/subcatagory">Create Sub Catagory</Link>
                 </li>
                 <li className='nav-item'>
                     <Link className='nav-link' to="/admin/coupon">Coupon</Link>

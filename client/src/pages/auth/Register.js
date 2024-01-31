@@ -31,7 +31,6 @@ useEffect(() => {
       }
        
         auth.sendSignInLinkToEmail(email, config).then((result) => {
-           console.log(result)
         }).catch((error) => {
         console.log(error);
         })

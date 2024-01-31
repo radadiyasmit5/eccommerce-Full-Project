@@ -12,19 +12,21 @@ export const Ratingaverage = (product) => {
     const average = totalofstars / ratinglength;
 
     return (
-      <div>
-        <StarsRating
-          size={30}
-          starRatedColor={"red"}
-          rating={average}
-          isSelectable={true}
-          editing={false}
-        //   starDimension="30px"
-        //   starSpacing="20px"
-        />
-        <span className="text px-3 h4 ">
-       ( {ratinglength} )
-       </span>
+      <div className="text-center pt-1 pb-3">
+        <span >
+          <StarsRating
+            starDimension="20px"
+            starSpacing="2px"
+            starRatedColor={"red"}
+            rating={average}
+            isSelectable={true}
+            editing={false}
+          //   starDimension="30px"
+          //   starSpacing="20px"
+          />{" "}
+
+          ( {ratinglength} )
+        </span>
       </div>
     );
   }

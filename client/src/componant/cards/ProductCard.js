@@ -14,18 +14,11 @@ export const ProductCard = ({ product, handledelete }) => {
     const { title, description, images, slug } = product
     const { user } = useSelector((state) => ({ ...state }))
     const [loading, setloading] = useState(false)
-
-    
-
-
-
     return (
-
-
         <Card
             cover={<img
                 src={images && images.length ? images[0].url : imageurl}
-                style={{ height: "200px", objectFit: "cover" }}
+                style={{ height: "200px", objectFit: "contain" }}
                 className='p-1'
 
             />}

@@ -28,13 +28,12 @@ let intended = history.location.state
 
   const rolebasedredirect = (result) => {
     if (intended) {
-        console.log(intended);
         history.push(intended)
     }
      else if (result.data.finduser.role === "admin") {
-      history.push("/admin/dashboard");
+      history.push("/");
     } else {
-      history.push("/user/dashboard");
+      history.push("/");
     }
   };
 
@@ -47,10 +46,8 @@ let intended = history.location.state
       const result = await auth.signInWithEmailAndPassword(email, password);
       const { user } = result;
       const idtokenresult = await user.getIdTokenResult();
-      console.log(result);
       authfunction(idtokenresult.token)
         .then((result) => {
-       
           dispatch({
             type: "LOGGED_IN_USER",
             payload: {
@@ -65,9 +62,8 @@ let intended = history.location.state
         })
         .catch((err) => {
           console.log(err);
+          toast.error('user not found in database, Please Sign up');
         });
-
-      console.log(idtokenresult.token);
 
       // history.push("/")
     } catch (error) {
