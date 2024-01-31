@@ -26,16 +26,16 @@ const Search = () => {
             type: "SEARCH_QUERY",
             payload: { text: e.target.value }
         })
-        
+
     }
 
 
     return (
         <form className='form-inline my-2 my-lg-0 pt-1 mr-5' onSubmit={handleSubmit}>
-            <input class="form-control mr-sm-2"
-                placeholder=' Search Products'
-                onChange={handleChange}
-                value={text}
+            <input className="form-control mr-sm-2"
+            placeholder=' Search Products'
+            onChange={handleChange}
+            value={text}
 
             />
             <SearchOutlined style={{ cursor: 'pointer' }} onClick={handleSubmit} />

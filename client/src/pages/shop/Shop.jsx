@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import UserProductCard from '../../componant/cards/UserProductCard';
+import FilterSidebar from '../../componant/FilterSidebar';
 import { getproductbycount, getProductsBysearchQuery } from '../../functions/product';
+import { selectProducts } from '../../reducers/ProductReducer';
 const Shop = () => {
   const { search } = useSelector(state => ({ ...state }))
+  const { products: updatedProducts } = useSelector(selectProducts)
   const searchQuery = search.text
 
   const [products, setproducts] = useState([])
@@ -25,7 +28,7 @@ const Shop = () => {
     }
 
     if (searchQuery !== '') {
-      getProductsBysearchQuery(searchQuery).then((res) => {
+      getProductsBysearchQuery({ searchQuery }).then((res) => {
         setproducts(res.data)
         setloading(false)
       }).catch((err) => {
@@ -43,23 +46,29 @@ const Shop = () => {
       // }, 300);
     }
     if (searchQuery !== '') {
-      getProductsBysearchQuery(searchQuery).then((res) => {
+      getProductsBysearchQuery({ searchQuery }).then((res) => {
         setproducts(res.data)
       }).catch((err) => {
         console.log('Error: ', err);
       })
 
     }
+
     // return () => clearTimeout(delayed)
   }, [searchQuery])
 
+  useEffect(() => {
+    if (updatedProducts) {
+      setproducts(updatedProducts)
+    }
+  }, [updatedProducts])
 
 
   return (
     <>
       <div className='d-flex w-100'>
         <div className='col-2'>
-          search/filter Menue
+          <FilterSidebar />
         </div>
 
         <div className="row pb-5 w-100">

@@ -6,7 +6,7 @@ import imageurl from '../../images/hplaptop.jpg'
 import { Ratingaverage } from '../../functions/Ratingaverage';
 const UserProductCard = ({ product }) => {
     const { Meta } = Card;
-    const { title, images, description, slug } = product
+    const { title, images, description, slug,price } = product
     return (
         <>
             {product && product.ratings && product.ratings.length > 0
@@ -26,7 +26,7 @@ const UserProductCard = ({ product }) => {
                     </Link >
                     , <ShoppingCartOutlined className=' text-danger' />]}
             >
-                <Meta title={title} description={description} />
+                <Meta title={`${title} - $${price}`} description={description} />
             </Card>
         </ >
     )

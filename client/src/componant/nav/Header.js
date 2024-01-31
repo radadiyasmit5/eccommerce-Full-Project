@@ -44,7 +44,7 @@ export const Header = () => {
         // style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
         className='d-flex justify-content-between w-100'
       >
-        <div className='d-flex'>
+        <div className='d-flex' >
           <Item key="home" icon={<AppstoreOutlined />} className="float-start">
             <Link to="/">Home</Link>
           </Item>

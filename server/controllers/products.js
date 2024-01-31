@@ -73,8 +73,6 @@ exports.update = (req, res) => {
     }
     try {
         const updatedproduct = product.findOneAndUpdate({ slug: req.params.slug }, req.body, { new: true }, (err, response) => {
-            console.log(response);
-
             res.json(response)
         })
 
@@ -229,14 +227,22 @@ exports.getproductsBySubCategory = async (req, res) => {
 }
 
 
-const handleQuery = async (req, res, searchQuery) => {
+const handleSearchQuery = async (req, res, searchQuery) => {
     const products = await product.find({ $text: { $search: searchQuery.toString() } }).populate('category', "_id name").populate('subs', '_id name').exec()
     res.json(products)
 }
+const handlePriceRangeQuery = async (req, res, priceRange) => {
+    const [min, max] = priceRange;
+    const products = await product.find({ price: { $gte: min, $lte: max } }).populate('category', "_id name").populate('subs', '_id name').exec()
+    res.json(products)
+}
 exports.searchFilters = async (req, res) => {
-    const { searchQuery } = req.body;
-    if (searchQuery) {
-        await handleQuery(req, res, searchQuery)
+    const { Query } = req.body;
+    if (Query && Query.SearchText) {
+        await handleSearchQuery(req, res, Query.SearchText)
+    }
+    if (Query && Query.priceRange) {
+        handlePriceRangeQuery(req, res, Query.priceRange)
     }
 
 }
