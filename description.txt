@@ -1,6 +1,0 @@
-
-
-
-
- ** **** ** forgot password - authantication of user by sending mail and followup link to reset password /
-                      if user forcly goes to forgot/password l;ink then redirect him/her to home page if user already exist in redux
