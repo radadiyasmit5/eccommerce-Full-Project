@@ -2,8 +2,10 @@ export function productReducer(state = intialState, action) {
     switch (action.type) {
         case "SET_PRODUCTS":
             return action.payload
+            break;
         case "REMOVE_PRODUCT":
             return {}
+            break;
         default:
             return state;
     }

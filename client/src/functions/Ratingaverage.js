@@ -25,7 +25,7 @@ export const Ratingaverage = (product) => {
           //   starSpacing="20px"
           />{" "}
 
-          ( {ratinglength} )
+          ( {average} )
         </span>
       </div>
     );
