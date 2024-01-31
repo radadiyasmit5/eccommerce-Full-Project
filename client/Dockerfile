@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install --production
+RUN npm install --production --force
 
 RUN npm run build
 
