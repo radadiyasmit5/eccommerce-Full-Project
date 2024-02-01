@@ -82,9 +82,9 @@ export const getProductsBySubCategory = async (productName) => {
     `${process.env.REACT_APP_API}/products/getProductsBySubCategory/${productName}`
   )
 }
-export const getProductsBysearchQuery = async ({searchQuery,priceRange}) => {
+export const getProductsBysearchQuery = async (query) => {
   return await axios.post(
-    `${process.env.REACT_APP_API}/product/search/filters`, { Query: { SearchText: searchQuery,priceRange:priceRange } }
+    `${process.env.REACT_APP_API}/product/search/filters`, { query }
 
   )
 }

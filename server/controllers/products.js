@@ -236,13 +236,21 @@ const handlePriceRangeQuery = async (req, res, priceRange) => {
     const products = await product.find({ price: { $gte: min, $lte: max } }).populate('category', "_id name").populate('subs', '_id name').exec()
     res.json(products)
 }
+const handleCategories = async (req, res, categories) => {
+    const products = await product.find({ category: categories }).populate('category', "_id name").populate('subs', '_id name').exec()
+    res.json(products)
+}
 exports.searchFilters = async (req, res) => {
-    const { Query } = req.body;
-    if (Query && Query.SearchText) {
-        await handleSearchQuery(req, res, Query.SearchText)
+    const { query } = req.body;
+    if (query && query.searchQuery) {
+        await handleSearchQuery(req, res, query.searchQuery)
     }
-    if (Query && Query.priceRange) {
-        handlePriceRangeQuery(req, res, Query.priceRange)
+    if (query && query.priceRange) {
+        handlePriceRangeQuery(req, res, query.priceRange)
+    }
+
+    if (query && query.categories) {
+        handleCategories(req, res, query.categories)
     }
 
 }
