@@ -66,19 +66,24 @@ const Shop = () => {
 
   return (
     <>
-      <div className='d-flex w-100'>
-        <div className='col-2'>
-          <FilterSidebar />
-        </div>
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='col-md-3'>
+            <FilterSidebar />
+          </div>
+          <div className="col-md-9">
+            <div className='row'>
+              {loading ? <h4 className='text-danger text-center'>Loading...</h4> : products.length
 
-        <div className="row pb-5 w-100">
-          {loading ? <h4 className='text-danger text-center'>Loading...</h4> : products.length
-            ? products.map((r) => (
-              <div className="col-md-4 mt-3" key={r._id}>
-                <UserProductCard product={r} />
-              </div>
-            ))
-            : (<div className="text-center col">No Products Found</div>)}
+                ? products.map((r) => (
+                  <div className="col-md-4 mt-3" key={r._id}>
+                    <UserProductCard product={r} />
+                  </div>
+                ))
+                : (<div className="text-center col">No Products Found</div>)
+              }
+            </div>
+          </div>
         </div>
       </div>
     </>
