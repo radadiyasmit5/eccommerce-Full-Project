@@ -56,14 +56,19 @@ const FilterSidebar = () => {
 
     useEffect(() => {
         getProductsBysearchQuery({ categories: checkedCategoriesKey }).then((res) => {
-            console.log(res);
+            setproducts(res.data)
+            dispatch({
+                type: "SET_PRODUCTS",
+                payload: [...res.data]
+            })
         }).catch((err) => {
             console.log('Category filter error : ', err)
             toast.error('Error which fetching Products By Categories')
         })
     }, [checkedCategoriesKey.length])
 
-    const handleChange = (e) => {
+    const handleCategoryChange = (e) => {
+        setPriceRange([0, 0])
         const productKey = e.target.eventKey
         let newCheckedCategoryKeys = [...checkedCategoriesKey];
         const isProductAlreadyChecked = newCheckedCategoryKeys.indexOf(productKey)
@@ -73,7 +78,7 @@ const FilterSidebar = () => {
             const index = newCheckedCategoryKeys.indexOf(productKey)
             newCheckedCategoryKeys.splice(index, 1)
         }
-
+        
         setcheckedCategoriesKey(newCheckedCategoryKeys)
     }
 
@@ -99,6 +104,7 @@ const FilterSidebar = () => {
                         className='mt-5'
                         max={2500}
                         min={0}
+                        value={priceRange}
                         defaultValue={[500, 1500]}
                         onChange={handleSliderChange}
                     />
@@ -112,7 +118,7 @@ const FilterSidebar = () => {
                 >
                     {categories && categories.map((c) => {
 
-                        return <Checkbox className='my-2 ml-4 col-md-8 w-100' key={c._id} onChange={handleChange} checked={checkedCategoriesKey.includes(c._id)}>{c.name}</Checkbox>
+                        return <Checkbox className='my-2 ml-4 col-md-8 w-100' key={c._id} onChange={handleCategoryChange} checked={checkedCategoriesKey.includes(c._id)}>{c.name}</Checkbox>
                     })}
 
 
