@@ -22,8 +22,6 @@ const initialState = {
     color: '',
     brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
     brand: "",
-
-
 }
 export const CreateProducts = () => {
     const { user } = useSelector(state => ({ ...state }))
