@@ -1,6 +1,5 @@
 import React from "react"
 import {Drawer} from "antd"
-import "react-modern-drawer/dist/index.css"
 import {useDispatch, useSelector} from "react-redux"
 import {selectCart} from "../reducers/CartReducer"
 import {
