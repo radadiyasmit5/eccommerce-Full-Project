@@ -14,6 +14,7 @@ import imageurl from "../../images/hplaptop.jpg"
 import "./cart.css"
 import {currencyFormat} from "../../utils/utils"
 import {toast} from "react-toastify"
+import {saveCartToDB} from "../../functions/Cart"
 export const Cart = () => {
   const [colors, setcolors] = useState([
     "Black",
@@ -65,6 +66,15 @@ export const Cart = () => {
     history.push({
       pathname: "/login",
       state: "/cart",
+    })
+  }
+
+  const handleProceedToCheckout = () => {
+    //save this Cart in to DB
+    saveCartToDB(user.token, cart).then((res) => {
+      if (res.data == "ok") {
+        history.push("/checkout")
+      }
     })
   }
   const handleColorchange = (id, newcolor) => {
@@ -220,21 +230,20 @@ export const Cart = () => {
       ),
     },
   ]
-  const productsinCart = useSelector(selectCart)
   return (
     <>
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-8">
-            <h2 className="m-3">Cart /{productsinCart.length} Products</h2>
-            {productsinCart?.length == 0 ? (
+            <h2 className="m-3">Cart /{cart.length} Products</h2>
+            {cart?.length == 0 ? (
               <h4 className="m-3">
                 No Products in Cart, <Link to="/shop">Continue Shopping</Link>.
               </h4>
             ) : (
               <>
                 <Table
-                  dataSource={productsinCart}
+                  dataSource={cart}
                   columns={columns}
                   bordered
                   pagination={{position: ["none", "bottomCenter"]}}
@@ -265,6 +274,7 @@ export const Cart = () => {
               <button
                 className="text-uppercase btn btn-outline-success m-2"
                 disabled={!cart?.length}
+                onClick={handleProceedToCheckout}
               >
                 Proceed to Checkout
               </button>
