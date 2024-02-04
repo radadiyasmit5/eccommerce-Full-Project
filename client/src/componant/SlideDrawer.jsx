@@ -8,7 +8,6 @@ import {
   setDrawerVisibility,
 } from "../reducers/SlideDrawerReducer"
 import imageurl from "../images/hpdesktop.jpg"
-import {height} from "@mui/system"
 import {Link} from "react-router-dom"
 import {currencyFormat} from "../utils/utils"
 
