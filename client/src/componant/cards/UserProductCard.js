@@ -6,8 +6,7 @@ import imageurl from "../../images/hplaptop.jpg"
 import {Ratingaverage} from "../../functions/Ratingaverage"
 import {useDispatch, useSelectore} from "react-redux"
 import {addToCart} from "../../reducers/CartReducer"
-import CardContextfile, {CardContext} from "./CardContextProvider"
-import CardContextProvider from "./CardContextProvider"
+import CardContextfile, {CardContext} from "../context/CardContextProvider"
 const UserProductCard = ({product}) => {
   const {Meta} = Card
   const {title, images, description, slug, price} = product

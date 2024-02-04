@@ -5,15 +5,19 @@ import App from "./App"
 import "antd/dist/antd.css"
 import {BrowserRouter} from "react-router-dom"
 // import * as serviceWorker from "./serviceWorker";
-import {createStore} from "redux"
+import {applyMiddleware, createStore} from "redux"
 import {Provider} from "react-redux"
 import {composeWithDevTools} from "redux-devtools-extension"
 import rootReducer from "./reducers"
-import CardContextProvider from "./componant/cards/CardContextProvider"
-
+import CardContextProvider from "./componant/context/CardContextProvider"
+import {thunk} from 'redux-thunk';
 //store
 
-const store = createStore(rootReducer, composeWithDevTools())
+const store = createStore(
+  rootReducer,
+  composeWithDevTools( applyMiddleware(thunk))
+ 
+)
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

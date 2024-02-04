@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { Card, Descriptions } from "antd";
 import { Carousel } from "react-responsive-carousel";
@@ -16,9 +16,12 @@ import imageurl from "../../images/hplaptop.jpg";
 import StarsRating from "react-star-ratings";
 import { StarsRatingmodal } from "../modal/StarsRatingmodal";
 import { Ratingaverage } from "../../functions/Ratingaverage";
+import { CardContext } from "../context/CardContextProvider";
 const Singalproductcard = ({ product, handlechange, star,updateStartRatings }) => {
   const { TabPane } = Tabs;
   const { images, description, title, slug, _id } = product;
+  const {handleCartClick} = useContext(CardContext)
+
   return (
     <div className="row">
       <div className="col-md-7">
@@ -56,9 +59,9 @@ const Singalproductcard = ({ product, handlechange, star,updateStartRatings }) =
         <h1 className="bg-info p-3">{title}</h1>
         <Card
           actions={[
-            <Link to="/">
+            <a onClick={()=>handleCartClick(product)}>
               <ShoppingCartOutlined className=" text-warning" />
-            </Link>,
+            </a>,
             <HeartOutlined className=" text-danger" />,
             <StarsRatingmodal updateStartRatings={updateStartRatings} rating={star}>
               <StarsRating

@@ -53,6 +53,8 @@ const FilterSidebar = () => {
   const handleSliderChange = (value) => {
     setPriceRange(value)
     setok(true)
+    setisCategoryClicked(false)
+    setcheckedCategoriesKey([])
   }
 
   // set ok when component first mounts.
@@ -226,7 +228,7 @@ const FilterSidebar = () => {
     <div>
       <Menu
         mode="inline"
-        defaultOpenKeys={["sub1", "sub2", "sub3", "sub4", "sub5","sub6"]}
+        defaultOpenKeys={["sub1", "sub2", "sub3", "sub4", "sub5", "sub6"]}
       >
         <SubMenu
           key={"sub1"}
