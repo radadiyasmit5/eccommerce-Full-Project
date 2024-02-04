@@ -7,8 +7,23 @@ exports.saveCartToDb = async (req, res) => {
   let products = {}
   let cartFromUi = req.body.cart
 
-  const user = await User.findOne({email: req.user.email}).exec()
-  const checkIfcartforUseExist = await Cart.findOne({user: user._id}, null)
+  let user
+  await User.findOne({email: req.user.email})
+    .exec()
+    .then((res) => {
+      user = res
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  const checkIfcartforUseExist = await Cart.findOne(
+    {user: user._id},
+    null
+  ).exec((err, doc) => {
+    if (err) {
+      console.log(err)
+    }
+  })
   if (checkIfcartforUseExist != [] && checkIfcartforUseExist != null) {
     await checkIfcartforUseExist.remove()
   }
@@ -31,10 +46,11 @@ exports.saveCartToDb = async (req, res) => {
   }
   products.totalPrice = totalPrice
   products.user = user._id
-  const result = await new Cart(products).save()
-  if (result) {
-    res.json("ok")
-  }
+  const result = await new Cart(products).save().then((response) => {
+    if (response) {
+      res.json("ok")
+    }
+  })
 }
 
 exports.getProductsinCart = async (req, res) => {
