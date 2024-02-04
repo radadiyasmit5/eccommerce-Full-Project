@@ -13,6 +13,8 @@ export function CartReducer(
       return action.payload
     case "UPDATE_CART":
       return action.payload
+    case "EMPTY_CART":
+      return action.payload
     default:
       return state
   }
@@ -22,6 +24,12 @@ export const addToCart = (product) => {
   return {
     type: "ADD_TO_CART",
     payload: product,
+  }
+}
+export const emptyCart = () => {
+  return {
+    type: "EMPTY_CART",
+    payload: [],
   }
 }
 export const updateCart = (product, updatedfieldname, updatedvalue) => {

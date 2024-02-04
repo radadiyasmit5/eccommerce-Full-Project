@@ -22,8 +22,6 @@ const initialState = {
     color: '',
     brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
     brand: "",
-
-
 }
 export const UpdateProduct = ({ match, history }) => {
     const { user } = useSelector(state => ({ ...state }))

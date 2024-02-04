@@ -37,6 +37,7 @@ import SubCategory from "./pages/subcategory/SubCategory"
 import Shop from "./pages/shop/Shop"
 import {Cart} from "./pages/cart/Cart"
 import SlideDrawer from "./componant/SlideDrawer"
+import Checkout from "./pages/checkout/Checkout"
 
 export const App = ({history, match}) => {
   const dispatch = useDispatch()
@@ -114,6 +115,7 @@ export const App = ({history, match}) => {
         <Route exact path="/subs/:slug" component={SubCategory} />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={Checkout} />
       </Switch>
     </>
   )
