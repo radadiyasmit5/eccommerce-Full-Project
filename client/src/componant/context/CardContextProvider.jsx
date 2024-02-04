@@ -1,6 +1,7 @@
 import React, {createContext} from "react"
 import {useDispatch} from "react-redux"
 import {addToCart} from "../../reducers/CartReducer"
+import {setDrawerVisibility} from "../../reducers/SlideDrawerReducer"
 
 export const CardContext = createContext(null)
 const CardContextProvider = (props) => {
@@ -34,6 +35,8 @@ const CardContextProvider = (props) => {
     }
     dispatch(addToCart(arr))
     localStorage.setItem("cart", JSON.stringify(arr))
+
+    dispatch(setDrawerVisibility(true))
   }
 
   return (
