@@ -1,11 +1,17 @@
 import {ConfigProvider, Form, Input} from "antd"
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {toast} from "react-toastify"
-import {deleteProductsinCart, getProductsinCart} from "../../functions/Cart"
+import {
+  deleteProductsinCart,
+  getProductsinCart,
+  setuserAddress,
+} from "../../functions/Cart"
+import {validatCoupon} from "../../functions/coupon"
 import {emptyCart, selectCart} from "../../reducers/CartReducer"
-import {currencyFormat} from "../../utils/utils"
-
+import {currencyFormat, getFullAddress} from "../../utils/utils"
+import confetti from "canvas-confetti"
+import {Tooltip} from "antd"
 const Checkout = () => {
   const initialState = {
     firstname: "",
@@ -13,6 +19,7 @@ const Checkout = () => {
     email: "",
     address: "",
     town: "",
+    state: "",
     country: "",
     postalcode: "",
   }
@@ -21,6 +28,10 @@ const Checkout = () => {
   const [ProductsinCart, setProductsinCart] = useState([])
   const {user} = useSelector((state) => ({...state}))
   const [userLoginInfo, setuserLoginInfo] = useState(user)
+  const [fullAddress, setfullAddress] = useState(null)
+  const [coupon, setcoupon] = useState("")
+  const [totalAfterDiscount, settotalAfterDiscount] = useState(0)
+  const [istooltipVisible, setistooltipVisible] = useState(false)
   const dispatch = useDispatch()
   const handleFormSubmit = (e) => {
     e.preventDefault()
@@ -29,12 +40,15 @@ const Checkout = () => {
     setuserDetails({...userDetails, [e.target.name]: e.target.value})
   }
 
+  const tooltipref = useRef(null)
   useEffect(() => {
     if (user && user?.token) {
       getProductsinCart(user?.token)
         .then((res) => {
           setProductsinCart(res.data.products)
           settotalPrice(res.data.totalPrice)
+          res.data.totalPriceAfterDiscount > 0 &&
+            settotalAfterDiscount(res.data?.totalPriceAfterDiscount)
         })
         .catch((err) => {
           console.log(err)
@@ -48,7 +62,6 @@ const Checkout = () => {
     if (typeof window !== undefined) {
       localStorage.removeItem("cart")
     }
-
     dispatch(emptyCart())
 
     deleteProductsinCart(user?.token)
@@ -58,12 +71,66 @@ const Checkout = () => {
         }
         setProductsinCart([])
         settotalPrice(0)
+        settotalAfterDiscount(0)
       })
       .catch((err) => {
         console.log(err)
         toast.error("Error while deleting products in cart")
       })
   }
+
+  const handleSaveAddress = () => {
+    setfullAddress(
+      getFullAddress(
+        userDetails.address,
+        userDetails.town,
+        userDetails.state,
+        userDetails.country
+      )
+    )
+    setuserAddress(
+      user?.token,
+      getFullAddress(
+        userDetails.address,
+        userDetails.town,
+        userDetails.state,
+        userDetails.country
+      ).toString()
+    )
+      .then((res) => {
+        toast.success("Address Updated Successfully")
+        setuserDetails(initialState)
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error("Issue While Updating/Adding Addredd")
+      })
+  }
+  const handleCouponApply = (e) => {
+    validatCoupon(coupon, user.token)
+      .then((res) => {
+        settotalAfterDiscount(res.data.totalPriceAfterDiscount)
+        toast.success("Coupon Applied SuccessFully")
+        confetti({
+          spread: 180,
+          particleCount: 150,
+          ticks: 100,
+        })
+        setcoupon("")
+      })
+      .catch((err) => {
+        if (err.msg) {
+          toast.error(err.msg)
+        }
+        console.log(err)
+        return toast.error("There is some issue while validating the coupon")
+      })
+  }
+
+  const onCouponChage = (e) => {
+    setcoupon(e.target.value)
+  }
+
   return (
     <>
       <div className="row">
@@ -140,6 +207,20 @@ const Checkout = () => {
 
               <lable className="font-weight-bold text-capitalize text-truncate">
                 <h6>
+                  <span className="mr-1 text-danger">*</span>State
+                </h6>
+              </lable>
+              <input
+                className="form form-control mb-3 p-2"
+                // placeholder="First Name"
+                required={true}
+                value={userDetails.state}
+                name="state"
+                onChange={(e) => handleInputChange(e)}
+              ></input>
+
+              <lable className="font-weight-bold text-capitalize text-truncate">
+                <h6>
                   <span className="mr-1 text-danger">*</span>Country
                 </h6>
               </lable>
@@ -166,16 +247,15 @@ const Checkout = () => {
                 onChange={(e) => handleInputChange(e)}
               ></input>
 
-              <button className="btn btn-raised btn-info" type="submit">
+              <button
+                className="btn btn-raised btn-info"
+                type="submit"
+                onClick={handleSaveAddress}
+              >
                 {" "}
                 Save{" "}
               </button>
             </form>
-            <div>
-              <h5>Got Coupon ?</h5>
-              <input className="form form-control" />
-              <button className="btn btn-raised mt-3 btn-success">Apply</button>
-            </div>
           </div>
         </div>
         <div className="col-md-5">
@@ -183,12 +263,16 @@ const Checkout = () => {
           <hr />
           <h5 className="ml-4">
             {" "}
-            {ProductsinCart && ProductsinCart?.length} Products
+            {ProductsinCart && ProductsinCart?.length > 1 ? (
+              <span>{ProductsinCart?.length} Products</span>
+            ) : (
+              <span>{ProductsinCart?.length} Product</span>
+            )}
           </h5>
           <hr />
           {ProductsinCart && ProductsinCart?.length ? (
             ProductsinCart.map((c) => (
-              <h6 className="mt-3 ml-4">
+              <h6 className="mt-3 ml-4 text text-info bg-light w-75 p-2">
                 {c.product.title} X {c.count} ={" "}
                 {currencyFormat(c.count * c.price)}
               </h6>
@@ -201,9 +285,18 @@ const Checkout = () => {
             {" "}
             Total = {totalPrice ? currencyFormat(totalPrice) : 0}
           </h5>
-          <div className="row">
+          <h6 className="text text-success ml-4 mt-3">
+            {totalAfterDiscount > 0 &&
+              `Coupon Code ${coupon} Applied - TotalPriceAfterDiscount - ${currencyFormat(
+                totalAfterDiscount
+              )}`}
+          </h6>
+          <div className="row ml-2">
             <div className="col ">
-              <button className="btn btn-raised btn-success mt-3">
+              <button
+                className="btn btn-raised btn-success mt-3"
+                disabled={!fullAddress}
+              >
                 Place Order
               </button>
             </div>
@@ -217,6 +310,32 @@ const Checkout = () => {
                 Empty Cart
               </button>
             </div>
+          </div>
+          <div className="mt-4 ml-4 w-75">
+            <h5>Got Coupon ?</h5>
+            <Tooltip
+              title="Coupon Already Applied"
+              placement={"left"}
+              visible={totalAfterDiscount > 0 && istooltipVisible}
+              defaultVisible={false}
+              ref={tooltipref}
+              onMouseEnter={() => setistooltipVisible(true)}
+              onMouseLeave={() => setistooltipVisible(false)}
+            >
+              <input
+                className="form form-control"
+                onChange={onCouponChage}
+                value={coupon}
+                disabled={totalAfterDiscount > 0}
+              />
+              <button
+                className="btn btn-raised mt-3 btn-success"
+                onClick={handleCouponApply}
+                disabled={totalAfterDiscount > 0}
+              >
+                Apply
+              </button>
+            </Tooltip>
           </div>
         </div>
       </div>

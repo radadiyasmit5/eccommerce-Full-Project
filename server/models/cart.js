@@ -16,10 +16,10 @@ const CartSchema = new mongoose.Schema(
     ],
     totalPrice: Number,
     totalPriceAfterDiscount: Number,
-    user: {type: ObjectId, ref: "User"},
+    user: {type: ObjectId, ref: "User", unique: true},
   },
 
   {timestamps: true}
 )
 
-module.exports = mongoose.model("Cart", CartSchema)
+exports.Cart = mongoose.model("Cart", CartSchema)
