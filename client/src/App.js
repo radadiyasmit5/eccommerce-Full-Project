@@ -38,6 +38,7 @@ import Shop from "./pages/shop/Shop"
 import {Cart} from "./pages/cart/Cart"
 import SlideDrawer from "./componant/SlideDrawer"
 import Checkout from "./pages/checkout/Checkout"
+import CouponPage from "./pages/coupon/CouponPage"
 
 export const App = ({history, match}) => {
   const dispatch = useDispatch()
@@ -110,6 +111,7 @@ export const App = ({history, match}) => {
           path="/admin/updateproduct/:slug"
           component={UpdateProduct}
         />
+        <Adminroute exact path="/admin/coupon" component={CouponPage} />
         <Route exact path="/product/:slug" component={Products} />
         <Route exact path="/category/:slug" component={CategoryPage} />
         <Route exact path="/subs/:slug" component={SubCategory} />

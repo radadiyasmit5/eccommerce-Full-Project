@@ -31,3 +31,12 @@ export const deleteProductsinCart = async (authtoken) => {
     }
   )
 }
+export const setuserAddress = async (authtoken, address) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/user/setUserAddress`,
+    {address},
+    {
+      headers: {authtoken},
+    }
+  )
+}
