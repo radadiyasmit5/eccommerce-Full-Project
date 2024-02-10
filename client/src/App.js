@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {Switch, Route} from "react-router-dom"
 import Login from "./pages/auth/Login"
 import Register from "./pages/auth/Register"
@@ -6,6 +6,7 @@ import Home from "./pages/Home"
 import Header from "./componant/nav/Header"
 import CompleteRegistration from "./pages/auth/CompleteRegistration"
 import {useEffect} from "react"
+import {useLocation} from "react-router-dom"
 //for notification
 import {ToastContainer} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -39,10 +40,14 @@ import {Cart} from "./pages/cart/Cart"
 import SlideDrawer from "./componant/SlideDrawer"
 import Checkout from "./pages/checkout/Checkout"
 import CouponPage from "./pages/coupon/CouponPage"
+import Payment from "./pages/payment/Payment"
+import Loading from "./componant/Loading"
 
 export const App = ({history, match}) => {
   const dispatch = useDispatch()
   const {user} = useSelector((state) => ({...state}))
+  const [pathName, setpathName] = useState(window.location.pathname)
+  const search = useLocation().search
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
@@ -69,13 +74,18 @@ export const App = ({history, match}) => {
     })
   }, [dispatch])
 
+  useEffect(() => {
+    setpathName(window.location.pathname)
+  }, [window.location.pathname])
+
   return (
     <>
-      <Header />
+      {pathName !== "/payment" && <Header />}
       <SlideDrawer />
       <ToastContainer />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route
@@ -118,6 +128,9 @@ export const App = ({history, match}) => {
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/payment" component={Payment} />
+        <Route path={"/*"} component={Home} />
+        {/* <Route exact path="/loading" component={Loading} /> */}
       </Switch>
     </>
   )

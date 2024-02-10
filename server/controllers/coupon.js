@@ -55,20 +55,15 @@ exports.validatCoupon = async (req, res) => {
   let totalPriceAfterDiscount =
     totalPrice - (totalPrice * coupon.discount) / 100
 
-  const result = Cart.findOneAndUpdate(
+  const result = await Cart.findOneAndUpdate(
     {user: user._id},
     {totalPriceAfterDiscount: totalPriceAfterDiscount},
     {new: true}
-  )
+  ).exec()
 
-  result
-    .then((response) => {
-      if (response) {
-        return res.json(response)
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-      return res.status(500).send({msg: "Server Error while updating the Cart"})
-    })
+  if (!!result) {
+    return res.json(result)
+  }
+
+  return res.status(500).send({msg: "Server Error while updating the Cart"})
 }
