@@ -10,8 +10,9 @@ import {
 import {validatCoupon} from "../../functions/coupon"
 import {emptyCart, selectCart} from "../../reducers/CartReducer"
 import {currencyFormat, getFullAddress} from "../../utils/utils"
-import confetti from "canvas-confetti"
+// import confetti from "canvas-confetti"
 import {Tooltip} from "antd"
+import {useHistory} from "react-router-dom"
 const Checkout = () => {
   const initialState = {
     firstname: "",
@@ -33,6 +34,7 @@ const Checkout = () => {
   const [totalAfterDiscount, settotalAfterDiscount] = useState(0)
   const [istooltipVisible, setistooltipVisible] = useState(false)
   const dispatch = useDispatch()
+  const history = useHistory()
   const handleFormSubmit = (e) => {
     e.preventDefault()
   }
@@ -111,11 +113,15 @@ const Checkout = () => {
       .then((res) => {
         settotalAfterDiscount(res.data.totalPriceAfterDiscount)
         toast.success("Coupon Applied SuccessFully")
-        confetti({
-          spread: 180,
-          particleCount: 150,
-          ticks: 100,
+        dispatch({
+          type: "TOGGLE_COUPON_APPLIED",
+          payload: {coupon: coupon, isCouponApplied: true},
         })
+        // confetti({
+        //   spread: 180,
+        //   particleCount: 150,
+        //   ticks: 100,
+        // })
         setcoupon("")
       })
       .catch((err) => {
@@ -131,6 +137,9 @@ const Checkout = () => {
     setcoupon(e.target.value)
   }
 
+  const handlePlaceOrder = () => {
+    history.push("/payment")
+  }
   return (
     <>
       <div className="row">
@@ -296,6 +305,7 @@ const Checkout = () => {
               <button
                 className="btn btn-raised btn-success mt-3"
                 disabled={!fullAddress}
+                onClick={handlePlaceOrder}
               >
                 Place Order
               </button>
