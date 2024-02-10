@@ -1,4 +1,4 @@
-const stripe = require("stripe")(process.env.STRIPE_API_TOKE)
+const stripe = require("stripe")(process.env.STRIPE_API_TOKEN)
 const User = require("../models/user")
 const {Cart} = require("../models/cart")
 
