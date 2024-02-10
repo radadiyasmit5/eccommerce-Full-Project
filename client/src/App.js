@@ -42,6 +42,7 @@ import Checkout from "./pages/checkout/Checkout"
 import CouponPage from "./pages/coupon/CouponPage"
 import Payment from "./pages/payment/Payment"
 import Loading from "./componant/Loading"
+import Error from "./pages/Error"
 
 export const App = ({history, match}) => {
   const dispatch = useDispatch()
@@ -127,8 +128,9 @@ export const App = ({history, match}) => {
         <Route exact path="/subs/:slug" component={SubCategory} />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/checkout" component={Checkout} />
+        <Userroutes exact path="/checkout" component={Checkout} />
         <Route exact path="/payment" component={Payment} />
+        <Route exact path={"/error"} component={Error} />
         <Route path={"/*"} component={Home} />
         {/* <Route exact path="/loading" component={Loading} /> */}
       </Switch>

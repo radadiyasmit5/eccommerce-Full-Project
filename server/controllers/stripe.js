@@ -1,4 +1,4 @@
-const stripe = require("stripe")(process.env.STRIPE_API_TOKEN)
+const stripe = require("stripe")(process.env.STRIPE_API_TOKE)
 const User = require("../models/user")
 const {Cart} = require("../models/cart")
 
@@ -24,14 +24,18 @@ exports.stripePaymentIntent = async (req, res) => {
   } else {
     finalTotal = cart.totalPrice * 100
   }
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: finalTotal,
-    currency: "cad",
-    // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
-    automatic_payment_methods: {
-      enabled: true,
-    },
-  })
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: finalTotal,
+      currency: "cad",
+      // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    })
+  } catch {
+    return res.status(500).send('Server Encountered some issue while generating the PaymentIntent')
+  }
   res.json({
     clientSecret: paymentIntent.client_secret,
     finalTotal,
