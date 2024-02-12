@@ -24,8 +24,9 @@ exports.stripePaymentIntent = async (req, res) => {
   } else {
     finalTotal = cart.totalPrice * 100
   }
+  let paymentIntent
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
+    paymentIntent = await stripe.paymentIntents.create({
       amount: finalTotal,
       currency: "cad",
       // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
@@ -34,7 +35,9 @@ exports.stripePaymentIntent = async (req, res) => {
       },
     })
   } catch {
-    return res.status(500).send('Server Encountered some issue while generating the PaymentIntent')
+    return res
+      .status(500)
+      .send("Server Encountered some issue while generating the PaymentIntent")
   }
   res.json({
     clientSecret: paymentIntent.client_secret,
