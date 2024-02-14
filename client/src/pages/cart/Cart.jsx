@@ -282,7 +282,6 @@ export const Cart = () => {
               <button
                 className="text-uppercase btn btn-outline-warning m-2"
                 onClick={handleLogintocheckout}
-                disabled={!cart.length}
               >
                 Login to Checkout
               </button>
