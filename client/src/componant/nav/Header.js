@@ -8,6 +8,7 @@ import {
   ShoppingTwoTone,
   UserAddOutlined,
   UserOutlined,
+  MenuFoldOutlined,
 } from "@ant-design/icons"
 import {useState, useEffect} from "react"
 import {Link} from "react-router-dom"
@@ -18,7 +19,8 @@ import "../../index.css"
 import Search from "../forms/Search"
 import {useRef} from "react"
 import {getCart, selectCart} from "../../reducers/CartReducer"
-
+import {displatchToggleSideBar} from "../../reducers/LayoutReducer"
+import './AdminNav.css'
 const {SubMenu} = Menu
 const {Item} = Menu
 
@@ -28,7 +30,7 @@ export const Header = () => {
   const submenueRef = useRef(null)
 
   let history = useHistory() //history
-  let {user} = useSelector((state) => ({...state}))
+  let {user, layout} = useSelector((state) => ({...state}))
   let dispatch = useDispatch()
   let cart = useSelector(selectCart)
   const handleClick = (e) => {
@@ -44,14 +46,27 @@ export const Header = () => {
     history.push("/login")
   }
 
+  const handleSidebarbtnClick = () => {
+    dispatch(displatchToggleSideBar("isSideBarOpen", !layout.isSideBarOpen))
+  }
   return (
     <>
-      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" className="headerMenuContainer">
         <div
           // style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
-          className="d-flex justify-content-between w-100"
+          className="d-flex justify-content-between w-100 headerMenu"
         >
           <div className="d-flex">
+            <Item
+              key="home"
+              icon={
+                <button onClick={handleSidebarbtnClick} className='btn btn-raised '>
+                  <MenuFoldOutlined />
+                </button>
+              }
+              className="float-start ml-2"
+            ></Item>
+
             <Item
               key="home"
               icon={<AppstoreOutlined />}

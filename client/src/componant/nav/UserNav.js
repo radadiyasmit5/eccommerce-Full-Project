@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 
 const UserNav = () => {
 
-
-
-
   return (
     <nav>
       <ul className='nav flex-column'>
