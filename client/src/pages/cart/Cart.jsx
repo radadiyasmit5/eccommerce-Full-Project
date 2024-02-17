@@ -75,6 +75,8 @@ export const Cart = () => {
       if (res.data == "ok") {
         history.push("/checkout")
       }
+    }).catch((err)=>{
+      toast.error(err)
     })
   }
   const handleColorchange = (id, newcolor) => {
@@ -282,7 +284,6 @@ export const Cart = () => {
               <button
                 className="text-uppercase btn btn-outline-warning m-2"
                 onClick={handleLogintocheckout}
-                disabled={!cart.length}
               >
                 Login to Checkout
               </button>

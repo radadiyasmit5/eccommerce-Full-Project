@@ -1,0 +1,9 @@
+//  send the amount details from the backend and make sure that adding right amount while generating token  --- done
+// displaying the amount send by backend - total amount / payable amount - done
+// after payment redirect user if sucess in payment or display error if payment fails - done
+// fetch the addres if exists and ask user if want to countinue with the same address or want to add new one
+// validaing coupon date with today's date
+
+// less Priority
+
+//while prociding to checkout the cart is getting overriden in database and its removing the totalAfter discount value, have to think better way to resolve this
