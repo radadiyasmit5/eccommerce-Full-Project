@@ -7,7 +7,6 @@ const {count} = require("../models/user")
 exports.saveCartToDb = async (req, res) => {
   let products = {}
   let cartFromUi = req.body.cart
-
   let user
   await User.findOne({email: req.user.email})
     .exec()

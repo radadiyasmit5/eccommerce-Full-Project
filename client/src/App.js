@@ -98,7 +98,7 @@ export const App = ({history, match}) => {
         <Userroutes exact path="/user/history" component={History} />
         <Userroutes exact path="/user/password" component={Password} />
         <Userroutes exact path="/user/wishlist" component={Wishlist} />
-        <Adminroute exact path="/admin/dashboard" component={Admindashboard} />
+        <Adminroute exact path="/admin/dashboard" component={CreateProducts} />
         <Adminroute exact path="/admin/catagory" component={CatagoryCreate} />
         <Adminroute
           exact

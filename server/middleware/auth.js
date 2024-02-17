@@ -3,6 +3,7 @@ const model = require("../models/user")
 exports.authcheck = async (req, res, next) => {
   try {
     let firebaseadmin
+    let iserr = false
     await admin
       .auth()
       .verifyIdToken(req.headers.authtoken)
@@ -10,10 +11,13 @@ exports.authcheck = async (req, res, next) => {
         firebaseadmin = response
       })
       .catch((err) => {
+        res.status(400).send(err)
         console.log(err)
+        iserr = true
+        return
       })
     req.user = firebaseadmin
-    next()
+    !iserr && next()
   } catch (err) {
     console.log(err.message)
     res.status(401).json("invalid user name or password / user not found")

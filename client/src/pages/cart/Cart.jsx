@@ -75,6 +75,8 @@ export const Cart = () => {
       if (res.data == "ok") {
         history.push("/checkout")
       }
+    }).catch((err)=>{
+      toast.error(err)
     })
   }
   const handleColorchange = (id, newcolor) => {

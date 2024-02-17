@@ -5,6 +5,7 @@ import {productReducer} from "./ProductReducer.jsx"
 import {CartReducer} from "./CartReducer.jsx"
 import {SlideDrawerReducer} from "./SlideDrawerReducer.js"
 import {CouponReducer} from "./CouponReducer.jsx"
+import {LayoutReducer} from "./LayoutReducer.jsx"
 const rootReduser = combineReducers({
   user: useReducer,
   search: searchReducer,
@@ -12,5 +13,6 @@ const rootReduser = combineReducers({
   cart: CartReducer,
   drawer: SlideDrawerReducer,
   coupon: CouponReducer,
+  layout: LayoutReducer,
 })
 export default rootReduser
