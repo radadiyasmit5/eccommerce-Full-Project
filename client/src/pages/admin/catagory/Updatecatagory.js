@@ -7,6 +7,7 @@ import {toast} from "react-toastify"
 import {Link} from "react-router-dom"
 import SliderCompoment from "../../../componant/nav/SliderCompoment"
 import DashboardPageWrapper from "../../../componant/DashboardPageWrapper"
+import { DashboardPageHeading } from "../../../componant/DashboardPageHeading"
 export const Updatecatagory = ({history, match}) => {
   const [name, setname] = useState("")
   const [loading, setloading] = useState(false)
@@ -63,15 +64,15 @@ export const Updatecatagory = ({history, match}) => {
   return (
     <DashboardPageWrapper>
       {/* <AdminNav /> */}
-      <SliderCompoment />
+      <SliderCompoment isAdmin={true}/>
 
-      <div className="col">
-        <div className="col alert alert-secondary">
+      <div className="col slider-rightSide-container">
+        <div className="col">
           {" "}
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
-            <h4>Update Catagory</h4>
+           <DashboardPageHeading heading={'Update Catagory'}/>
           )}
         </div>
         {catagoryform()}

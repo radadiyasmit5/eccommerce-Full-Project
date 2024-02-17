@@ -20,7 +20,7 @@ import Search from "../forms/Search"
 import {useRef} from "react"
 import {getCart, selectCart} from "../../reducers/CartReducer"
 import {displatchToggleSideBar} from "../../reducers/LayoutReducer"
-import './AdminNav.css'
+import "./AdminNav.css"
 const {SubMenu} = Menu
 const {Item} = Menu
 
@@ -28,7 +28,7 @@ export const Header = () => {
   //usestates
   const [current, setcurrent] = useState("home")
   const submenueRef = useRef(null)
-
+const [showSlidebarIcon, setshowSlidebarIcon] = useState(false)
   let history = useHistory() //history
   let {user, layout} = useSelector((state) => ({...state}))
   let dispatch = useDispatch()
@@ -45,27 +45,42 @@ export const Header = () => {
     })
     history.push("/login")
   }
+  useEffect(() => {
+    if (history.location.pathname.includes('admin') || history.location.pathname.includes('user')) {
+      setshowSlidebarIcon(true)
+    }else{
+      setshowSlidebarIcon(false)
+    }
+  }, [history.location.pathname])
 
   const handleSidebarbtnClick = () => {
     dispatch(displatchToggleSideBar("isSideBarOpen", !layout.isSideBarOpen))
   }
   return (
     <>
-      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" className="headerMenuContainer">
+      <Menu
+        onClick={handleClick}
+        selectedKeys={[current]}
+        mode="horizontal"
+        className="headerMenuContainer"
+      >
         <div
           // style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
           className="d-flex justify-content-between w-100 headerMenu"
         >
           <div className="d-flex">
-            <Item
-              key="home"
+           {showSlidebarIcon && (<Item
+              key="HumburgurIcon"
               icon={
-                <button onClick={handleSidebarbtnClick} className='btn btn-raised '>
+                <button
+                  onClick={handleSidebarbtnClick}
+                  className="btn btn-raised "
+                >
                   <MenuFoldOutlined />
                 </button>
               }
               className="float-start ml-2"
-            ></Item>
+            ></Item>)}
 
             <Item
               key="home"
@@ -74,7 +89,7 @@ export const Header = () => {
             >
               <Link to="/">Home</Link>
             </Item>
-            <Item key="home" icon={<ShoppingTwoTone />} className="float-start">
+            <Item key="shop" icon={<ShoppingTwoTone />} className="float-start">
               <Link to="/shop">Shop</Link>
             </Item>
             <Item

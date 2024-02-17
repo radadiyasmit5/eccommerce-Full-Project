@@ -13,6 +13,7 @@ import {Link} from "react-router-dom"
 import {Localsearch} from "../../../componant/functions/Localsearch"
 import SliderCompoment from "../../../componant/nav/SliderCompoment"
 import DashboardPageWrapper from "../../../componant/DashboardPageWrapper"
+import { DashboardPageHeading } from "../../../componant/DashboardPageHeading"
 export const CatagoryCreate = () => {
   const [name, setname] = useState("")
   const [loading, setloading] = useState(false)
@@ -66,7 +67,7 @@ export const CatagoryCreate = () => {
         })
         .catch((err) => {
           setloading(false)
-          console.log("there is some problem while deleteing catagory")
+          toast.error("There is some problem while deleteing catagory")
         })
     }
   }
@@ -106,15 +107,15 @@ export const CatagoryCreate = () => {
     <DashboardPageWrapper>
       {/* <div className='col-md-2'> */}
       {/* <AdminNav /> */}
-      <SliderCompoment />
+      <SliderCompoment isAdmin={true}/>
       {/* </div> */}
-      <div className="col">
-        <div className="col alert alert-secondary">
+      <div className="col slider-rightSide-container">
+        <div className="col">
           {" "}
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
-            <h4>Create new Catagory</h4>
+           <DashboardPageHeading heading={'Create new Catagory'}/>
           )}
         </div>
         {catagoryform()}

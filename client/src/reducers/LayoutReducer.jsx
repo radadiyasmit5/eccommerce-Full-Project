@@ -1,5 +1,5 @@
 const initialState = {
-  isSideBarOpen: false,
+  isSideBarOpen: true,
 }
 
 export function LayoutReducer(state = initialState, action) {

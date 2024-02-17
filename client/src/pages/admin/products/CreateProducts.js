@@ -10,6 +10,7 @@ import {FileUpload} from "../../../componant/forms/FileUpload"
 import {LoadingOutlined} from "@ant-design/icons"
 import SliderCompoment from "../../../componant/nav/SliderCompoment"
 import DashboardPageWrapper from "../../../componant/DashboardPageWrapper"
+import { DashboardPageHeading } from "../../../componant/DashboardPageHeading"
 const initialState = {
   title: "",
   description: "",
@@ -79,14 +80,14 @@ export const CreateProducts = () => {
   return (
     <DashboardPageWrapper>
       {/* <AdminNav /> */}
-      <SliderCompoment />
-      <div className="col">
+      <SliderCompoment isAdmin={true}/>
+      <div className="col slider-rightSide-container">
         <div className="lable">
           {" "}
           {loading ? (
             <LoadingOutlined className="text-danger X-large" />
           ) : (
-            <h4>Product Create</h4>
+           <DashboardPageHeading heading={'Product Create'} />
           )}{" "}
         </div>
         <div className="p-3">

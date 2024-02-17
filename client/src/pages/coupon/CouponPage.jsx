@@ -11,6 +11,7 @@ import {useSelector} from "react-redux"
 import {DeleteOutlined} from "@ant-design/icons"
 import SliderCompoment from "../../componant/nav/SliderCompoment"
 import DashboardPageWrapper from "../../componant/DashboardPageWrapper"
+import { DashboardPageHeading } from "../../componant/DashboardPageHeading"
 const CouponPage = () => {
   const [name, setname] = useState("")
   const [discount, setprice] = useState(null)
@@ -72,10 +73,10 @@ const CouponPage = () => {
   return (
     <DashboardPageWrapper>
       {/* <AdminNav /> */}
-      <SliderCompoment />
+      <SliderCompoment isAdmin={true}/>
 
-      <div className="col-md-8">
-        <h1>Create A New Coupon</h1>
+      <div className="col-md-8 slider-rightSide-container">
+        <DashboardPageHeading heading={'Create A New Coupon'} />
         <form onSubmit={handleSubmit}>
           <label>
             <h6>Name</h6>

@@ -5,6 +5,7 @@
 }
 body {
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 * {
   /* color-scheme: dark; */
@@ -23,3 +24,11 @@ body{
   margin: 0;
   padding: 0;
 } */
+
+
+.slider-rightSide-container{
+  transition: all 250ms ease-in-out;
+  margin-top: 1rem;
+  margin-left: 1rem;
+
+}

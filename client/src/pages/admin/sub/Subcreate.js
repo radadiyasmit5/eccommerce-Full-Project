@@ -16,6 +16,7 @@ import {Localsearch} from "../../../componant/functions/Localsearch"
 import {Catagoryform} from "../../../componant/forms/Catagoryform"
 import SliderCompoment from "../../../componant/nav/SliderCompoment"
 import DashboardPageWrapper from "../../../componant/DashboardPageWrapper"
+import {DashboardPageHeading} from "../../../componant/DashboardPageHeading"
 export const Subcreate = () => {
   const [name, setname] = useState("")
   const [loading, setloading] = useState(false)
@@ -118,15 +119,15 @@ export const Subcreate = () => {
   return (
     <DashboardPageWrapper>
       {/* <AdminNav /> */}
-      <SliderCompoment />
+      <SliderCompoment isAdmin={true}/>
 
-      <div className="col">
-        <div className="col alert alert-secondary">
+      <div className="col slider-rightSide-container">
+        <div className="col">
           {" "}
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
-            <h4>Create new SubCatagory</h4>
+            <DashboardPageHeading heading={"Create new SubCatagory"} />
           )}
         </div>
 

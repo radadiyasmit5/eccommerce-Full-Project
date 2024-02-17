@@ -1,18 +1,25 @@
-import React from 'react'
-import UserNav from '../../componant/nav/UserNav'
-
+import React from "react"
+import {DashboardPageHeading} from "../../componant/DashboardPageHeading"
+import DashboardPageWrapper from "../../componant/DashboardPageWrapper"
+import SliderCompoment from "../../componant/nav/SliderCompoment"
+import UserNav from "../../componant/nav/UserNav"
 
 const History = () => {
+  return (
+    <>
+      <DashboardPageWrapper>
+        {/* <div > */}
+        {/* <AdminNav /> */}
+        <SliderCompoment isAdmin={false}/>
+        {/* </div> */}
+        <div className="col slider-rightSide-container">
+          <DashboardPageHeading heading={"History"} />
 
-    return (<div className="container-fluid">
-        <div className="row">
-            <div className='col-md-2'>
-                <UserNav />
-            </div>
-            <div className='col'> <h1>user route</h1></div>
-
+          <div className="col"></div>
         </div>
-    </div>)
+      </DashboardPageWrapper>
+    </>
+  )
 }
 
 export default History

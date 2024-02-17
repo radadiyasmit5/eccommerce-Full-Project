@@ -6,11 +6,11 @@ export const AdminNav = () => {
     <>
       <nav className="navContainer">
         <ul className="nav flex-column">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link className="nav-link" to="/admin/dashboard">
               dashboard
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link className="nav-link" to="/admin/product">
               Create Product
@@ -36,11 +36,7 @@ export const AdminNav = () => {
               Coupon
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/admin/password">
-              Password
-            </Link>
-          </li>
+         
         </ul>
       </nav>
     </>

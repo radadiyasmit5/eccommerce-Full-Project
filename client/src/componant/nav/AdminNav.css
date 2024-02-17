@@ -2,7 +2,7 @@
 .navclosex {
   /* float: right; */
   margin: 2% 0;
-  outline: 2px solid red;
+  /* outline: 2px solid red; */
   position: relative;
   right: 0px;
   width: 5%;
@@ -11,17 +11,14 @@
 .sideBarContainer {
   /* outline: 2px solid black; */
   height: 100%;
-  background-color: rgb(27, 26, 26);
-  position: sticky;
-  top: 0;
+  background-color:#1f2830;
   z-index: 2;
-  max-width: 20%;
   width: 0;
-  transition: width 0.3s ease-in;
+  transition: width 250ms ease-in-out;
 }
 
 .openSidebar {
-  width: 15vw;
+  width: 250px;
   /* position: sticky;
   top: 0;
   left: 0; */
@@ -36,6 +33,7 @@
 
 .nav {
   height: 100%;
+  transition: width 250ms ease-in-out;
 }
 
 .flex-column {
@@ -45,7 +43,9 @@
 
 .nav-item {
   width: 100%;
+  min-width: 250px;
   padding: 1rem 0;
+  transition: width 250ms ease-in-out;
 }
 
 .nav-item:hover {
@@ -58,21 +58,26 @@
   display: flex;
   justify-content: center;
   padding: 2rem 0 !important;
+  transition: width 250ms ease-in-out;
 }
 
-.headerMenuContainer{
-  height: 3rem;
-  z-index: 10000;
-
+.headerMenuContainer {
+  height: 45px;
+  max-height: 45px;
+  border: none;
 }
 /* for Header */
 .headerMenu {
   position: fixed;
   top: 0;
   z-index: 1000;
-  background-color: rgb(230, 228, 225);
+  background-color: #fafafa;
 }
 
 .nav-link {
   padding: 0;
+}
+
+.slider-container {
+  margin-right: 250px;
 }

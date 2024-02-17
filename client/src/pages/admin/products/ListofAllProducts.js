@@ -7,6 +7,7 @@ import {useSelector} from "react-redux"
 import {toast} from "react-toastify"
 import SliderCompoment from "../../../componant/nav/SliderCompoment"
 import DashboardPageWrapper from "../../../componant/DashboardPageWrapper"
+import {DashboardPageHeading} from "../../../componant/DashboardPageHeading"
 export const ListofAllProducts = ({history}) => {
   const [products, setproducts] = useState([])
   const [loading, setloading] = useState(false)
@@ -48,13 +49,13 @@ export const ListofAllProducts = ({history}) => {
   return (
     <DashboardPageWrapper>
       {/* <AdminNav /> */}
-      <SliderCompoment />
+      <SliderCompoment isAdmin={true}/>
 
-      <div className="col-md">
+      <div className="col-md slider-rightSide-container">
         {loading ? (
           <h4 className="text text-danger">Loading...</h4>
         ) : (
-          <h1> Products </h1>
+          <DashboardPageHeading heading={"Products "} />
         )}
 
         <div className="row ">

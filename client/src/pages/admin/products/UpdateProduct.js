@@ -15,6 +15,7 @@ import {AlertOutlined, FlagFilled, LoadingOutlined} from "@ant-design/icons"
 import ProductsUpdateForm from "../../../componant/forms/ProductsUpdateForm"
 import SliderCompoment from "../../../componant/nav/SliderCompoment"
 import DashboardPageWrapper from "../../../componant/DashboardPageWrapper"
+import { DashboardPageHeading } from "../../../componant/DashboardPageHeading"
 const initialState = {
   title: "",
   description: "",
@@ -115,15 +116,15 @@ export const UpdateProduct = ({match, history}) => {
   return (
     <DashboardPageWrapper>
       {/* <AdminNav /> */}
-      <SliderCompoment />
+      <SliderCompoment isAdmin={true}/>
 
-      <div className="col">
+      <div className="col slider-rightSide-container">
         <div className="lable">
           {" "}
           {loading ? (
             <LoadingOutlined className="text-danger X-large" />
           ) : (
-            <h4>Product Update</h4>
+            <DashboardPageHeading heading={'Product Update'}/>
           )}{" "}
         </div>
         <div className="p-3">

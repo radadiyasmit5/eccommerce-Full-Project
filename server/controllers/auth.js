@@ -3,7 +3,6 @@ const User= require("../models/user")
 exports.authfunction = async function (req, res) {
     const { email, name, picture } = req.user;
 
-
     const finduser = await User.findOneAndUpdate({ email }, { name:email.split("@")[0], picture }, { new: true })
   
     if (finduser) {
