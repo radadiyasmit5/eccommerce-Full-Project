@@ -7,13 +7,14 @@ import {Ratingaverage} from "../../functions/Ratingaverage"
 import {useDispatch, useSelectore} from "react-redux"
 import {addToCart} from "../../reducers/CartReducer"
 import CardContextfile, {CardContext} from "../context/CardContextProvider"
+import {SHOW_PARENT} from "rc-tree-select"
 const UserProductCard = ({product}) => {
   const {Meta} = Card
   const {title, images, description, slug, price} = product
   const dispatch = useDispatch()
 
   const {handleCartClick} = useContext(CardContext)
-  
+
   return (
     <>
       {product && product.ratings && product.ratings.length > 0 ? (
@@ -34,10 +35,15 @@ const UserProductCard = ({product}) => {
         }
         actions={[
           <Link to={`/product/${slug}`}>
-            <EyeOutlined className=" text-warning" />
+            <EyeOutlined className=" text-warning d-block mb-2" />
+            <span>View Product</span>
           </Link>,
-          <a onClick={() => handleCartClick(product)}>
-            <ShoppingCartOutlined className=" text-danger" />
+          <a
+            onClick={() => handleCartClick(product)}
+            style={{pointerEvents: product.quantity < 1 && "none"}}
+          >
+            <ShoppingCartOutlined className=" text-danger d-block mb-2" />
+            <span>{product.quantity < 1 ? "Out Of Stock" : "Add To Cart"}</span>
           </a>,
         ]}
       >
