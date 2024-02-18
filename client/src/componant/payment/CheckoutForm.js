@@ -8,6 +8,7 @@ import ProductCheckutCard from "./ProductCheckutCard"
 import {currencyFormat} from "../../utils/utils"
 import {emptyCart} from "../../reducers/CartReducer"
 import {deleteProductsinCart} from "../../functions/Cart"
+import {saveOrder} from "../../functions/Orders"
 
 const CheckoutForm = (props) => {
   const stripe = useStripe()
@@ -65,7 +66,7 @@ const CheckoutForm = (props) => {
         },
         redirect: "if_required",
       })
-      .then((response) => {
+      .then(async (response) => {
         if (response?.error) {
           if (
             response.error.type === "card_error" ||
@@ -76,14 +77,35 @@ const CheckoutForm = (props) => {
             setMessage("An unexpected error occurred.")
           }
         }
-        if (response.paymentIntent.status == "succeeded") {
-          dispatch(emptyCart())
-          if (typeof window !== undefined) {
-            localStorage.removeItem("cart")
-          }
-          deleteProductsinCart(user?.token)
-          toast.success("Payment Completed SuccessFully")
-          history.push("/home")
+        if (response.paymentIntent?.status == "succeeded") {
+          await saveOrder(response.paymentIntent, user.token)
+            .then((res) => {
+              if (res.data.status == "ok") {
+                dispatch(emptyCart())
+                dispatch({
+                  type: "TOGGLE_COUPON_APPLIED",
+                  payload: {
+                    isCouponApplied: false,
+                    coupon: "",
+                  },
+                })
+                if (typeof window !== undefined) {
+                  localStorage.removeItem("cart")
+                }
+                toast.success("Payment Completed SuccessFully")
+
+                deleteProductsinCart(user?.token)
+                history.push("/home")
+              } else {
+                toast.error(
+                  "There is some Server Error while placing the Order"
+                )
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+              toast.error("There is some Network error while placing the order")
+            })
         }
       })
 

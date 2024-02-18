@@ -1,20 +1,21 @@
 const mongoose = require("mongoose")
 const {ObjectId} = mongoose.Schema
 
-const OrdersSchema = new mongoose.Schema(
+const ordersSchema = new mongoose.Schema(
   {
     products: [
       {
-        products: {
+        product: {
           type: ObjectId,
           ref: "Product",
         },
         count: Number,
-        color: Number,
+        color: String,
       },
     ],
     paymentIntent: {},
     orderStatus: {
+      type: String,
       default: "Not Processed",
       enum: [
         "Not Processed",
@@ -26,9 +27,9 @@ const OrdersSchema = new mongoose.Schema(
       ],
     },
     orderdBy: {type: ObjectId, ref: "User"},
-    orderDate: String,
+    orderDate: {type: Date, default: () => new Date().toUTCString()},
   },
   {timestamps: true}
 )
 
-exports.Orders = mongoose.model("Orders", OrdersSchema)
+exports.Orders = mongoose.model("Orders", ordersSchema)

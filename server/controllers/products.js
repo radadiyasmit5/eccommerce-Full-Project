@@ -304,7 +304,6 @@ const handleSubCategory = async (req, res, subs) => {
   }
 }
 const handleBrand = async (req, res, brand) => {
-  
   const products = await product
     .find({brand: brand})
     .populate("category")
@@ -354,4 +353,18 @@ exports.searchFilters = async (req, res) => {
   if (query && query.color) {
     handlecolor(req, res, query.color)
   }
+}
+
+// trigger this unction from Orders Controller when order is placed, we should update the quantity and order property in the DB for the record
+exports.adjustProductCount = async (products) => {
+  const bulkQuery = []
+  products.map((p) => {
+    bulkQuery.push({
+      updateOne: {
+        filter: {_id: p.product},
+        update: {$inc: {quantity: -p.count, sold: +p.count}},
+      },
+    })
+  })
+  const result = await product.bulkWrite(bulkQuery)
 }
