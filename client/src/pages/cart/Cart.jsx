@@ -74,8 +74,11 @@ export const Cart = () => {
     saveCartToDB(user.token, cart).then((res) => {
       if (res.data == "ok") {
         history.push("/checkout")
+        return
       }
+      toast.error(res.data)
     }).catch((err)=>{
+      console.log(err);
       toast.error(err)
     })
   }

@@ -47,9 +47,9 @@ export const BestSeller = () => {
                             // onClick={history.push(`/product/${product.slug}`)}
 
                             <div className='col-md-4' key={product._id} >
-                                <Link to={`/product/${product.slug}`}>
+                                {/* <Link to={`/product/${product.slug}`}> */}
                                     <UserProductCard product={product} />
-                                </Link>
+                                {/* </Link> */}
                             </div>
 
                         ))
