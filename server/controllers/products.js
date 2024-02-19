@@ -368,3 +368,16 @@ exports.adjustProductCount = async (products) => {
   })
   const result = await product.bulkWrite(bulkQuery)
 }
+
+exports.getProductsById = async (req, res) => {
+  const id = req.params.id
+  try {
+    const Product = await product.findOne({_id: id}).exec()
+    if (Product) {
+      res.json(Product)
+    }
+  } catch (error) {
+    console.log(error);
+    res.json(error)
+  }
+}

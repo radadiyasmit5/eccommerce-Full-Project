@@ -15,6 +15,7 @@ import "./cart.css"
 import {currencyFormat} from "../../utils/utils"
 import {toast} from "react-toastify"
 import {saveCartToDB} from "../../functions/Cart"
+import {listallproductsbyId} from "../../functions/product"
 export const Cart = () => {
   const [colors, setcolors] = useState([
     "Black",
@@ -71,16 +72,18 @@ export const Cart = () => {
 
   const handleProceedToCheckout = () => {
     //save this Cart in to DB
-    saveCartToDB(user.token, cart).then((res) => {
-      if (res.data == "ok") {
-        history.push("/checkout")
-        return
-      }
-      toast.error(res.data)
-    }).catch((err)=>{
-      console.log(err);
-      toast.error(err)
-    })
+    saveCartToDB(user.token, cart)
+      .then((res) => {
+        if (res.data == "ok") {
+          history.push("/checkout")
+          return
+        }
+        toast.error(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error("There is some issue with the token or Cart , Hint: token might me expired, try to refresh the page")
+      })
   }
   const handleColorchange = (id, newcolor) => {
     let tempColor = new Map(color)
@@ -99,23 +102,37 @@ export const Cart = () => {
 
     dispatch(updateCart(product, "color", newcolor))
   }
-  const handleCountChange = (id, e) => {
-    let count = e.target.value
+  const handleCountChange = async (id, e) => {
+    e.stopPropagation()
+    let productfromDb = {}
+    let count = e?.target?.value
+
+    const res = await listallproductsbyId(id, user.token)
+    productfromDb = res.data
+    if (productfromDb.quantity < count) {
+      toast.error(
+        `There are only ${productfromDb?.quantity} items Available for this Prodcut`
+      )
+      return
+    }
     if (count < 0) {
       count = 1
     }
     let tempcount = new Map(productcount)
-    let currentProducts = JSON.parse(localStorage.getItem("cart"))
     tempcount.set(id, count)
     setproductcount(tempcount)
-    const product = cart.find((p) => {
-      return p._id == id
-    })
+
+    let currentProducts = JSON.parse(localStorage.getItem("cart"))
     currentProducts.map((p) => {
       if (p._id == id) {
         p.count = count
       }
     })
+
+    const product = cart.find((p) => {
+      return p._id == id
+    })
+
     localStorage.setItem("cart", JSON.stringify(currentProducts))
     dispatch(updateCart(product, "count", count))
   }
