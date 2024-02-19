@@ -51,3 +51,20 @@ exports.saveOrder = async (req, res) => {
       .send("There is some server side error while saving the order to the DB")
   }
 }
+
+exports.getOrders = async (req, res) => {
+  const {email} = req.user
+  let orders = []
+  try {
+    const user = await User.find({email: email}).exec()
+    if (user && user[0]) {
+      orders = await Orders.find({orderdBy: user[0]._id}).populate("products.product").exec()
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).send("There is some issue while getting Orders Information")
+    return
+  }
+
+  res.json(orders)
+}

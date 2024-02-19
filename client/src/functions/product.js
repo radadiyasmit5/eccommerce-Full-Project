@@ -1,15 +1,14 @@
-const axios = require("axios");
+const axios = require("axios")
 
 export const createproduct = async (product, authtoken) => {
-
   return await axios.post(
     `${process.env.REACT_APP_API}/createproduct`,
     product,
     {
-      headers: { authtoken },
+      headers: {authtoken},
     }
-  );
-};
+  )
+}
 
 export const removeproduct = async (title, images, authtoken) => {
   return await axios.delete(
@@ -19,14 +18,24 @@ export const removeproduct = async (title, images, authtoken) => {
         authtoken: authtoken,
       },
     }
-  );
-};
+  )
+}
 
 export const listallproductsbyslug = async (slug) => {
   return await axios.get(
     `${process.env.REACT_APP_API}/products/getproductbyslug/${slug}`
-  );
-};
+  )
+}
+export const listallproductsbyId = async (id, authtoken) => {
+  return await axios.get(
+    `${process.env.REACT_APP_API}/products/getproductbyId/${id}`,
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  )
+}
 
 export const updateproduct = async (slug, product, authtoken) => {
   return await axios.put(
@@ -35,40 +44,41 @@ export const updateproduct = async (slug, product, authtoken) => {
     {
       authtoken: authtoken,
     }
-  );
-};
+  )
+}
 
 export const getproductbycount = async (count) => {
-  return await axios.get(`${process.env.REACT_APP_API}/products/${count}`);
-};
+  return await axios.get(`${process.env.REACT_APP_API}/products/${count}`)
+}
 
 export const getproducts = async (sort, order, page) => {
   return await axios.post(`${process.env.REACT_APP_API}/products/`, {
     sort,
     order,
     page,
-  });
-};
+  })
+}
 
 export const totalproductcount = async () => {
-  return await axios.get(`${process.env.REACT_APP_API}/totalproducts/`);
-};
+  return await axios.get(`${process.env.REACT_APP_API}/totalproducts/`)
+}
 
 export const starrating = async (productid, stars, token) => {
   return await axios.put(
     `${process.env.REACT_APP_API}/products/setstarrating/${productid}`,
-    { stars },
+    {stars},
     {
       headers: {
-        authtoken: token
-      }
+        authtoken: token,
+      },
     }
-  );
-};
+  )
+}
 
 export const related_products = async (productid) => {
   return await axios.get(
-    `${process.env.REACT_APP_API}/products/related/${productid}`)
+    `${process.env.REACT_APP_API}/products/related/${productid}`
+  )
 }
 
 export const getProductsByCategory = async (productName) => {
@@ -84,7 +94,7 @@ export const getProductsBySubCategory = async (productName) => {
 }
 export const getProductsBysearchQuery = async (query) => {
   return await axios.post(
-    `${process.env.REACT_APP_API}/product/search/filters`, { query }
-
+    `${process.env.REACT_APP_API}/product/search/filters`,
+    {query}
   )
 }
