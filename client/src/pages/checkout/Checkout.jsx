@@ -1,4 +1,4 @@
-import {ConfigProvider, Form, Input} from "antd"
+import {Card, Checkbox, ConfigProvider, Form, Input, Radio} from "antd"
 import React, {useEffect, useRef, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {toast} from "react-toastify"
@@ -13,6 +13,7 @@ import {currencyFormat, getFullAddress} from "../../utils/utils"
 // import confetti from "canvas-confetti"
 import {Tooltip} from "antd"
 import {useHistory} from "react-router-dom"
+import {currentuser} from "../../functions/Axios"
 const Checkout = () => {
   const initialState = {
     firstname: "",
@@ -33,6 +34,8 @@ const Checkout = () => {
   const [coupon, setcoupon] = useState("")
   const [totalAfterDiscount, settotalAfterDiscount] = useState(0)
   const [istooltipVisible, setistooltipVisible] = useState(false)
+  const [suggestrdAddress, setsuggestrdAddress] = useState({})
+  const [isradioAddressSelected, setisradioAddressSelected] = useState(false)
   const dispatch = useDispatch()
   const history = useHistory()
   const handleFormSubmit = (e) => {
@@ -56,6 +59,10 @@ const Checkout = () => {
           console.log(err)
           toast.error("Error fetching products from cart")
         })
+      currentuser(user.token).then((res) => {
+   
+        setsuggestrdAddress(res.data?.address)
+      })
     }
   }, [user])
 
@@ -140,12 +147,39 @@ const Checkout = () => {
   const handlePlaceOrder = () => {
     history.push("/payment")
   }
+
+  const handleRadioAddress = () => {
+    setisradioAddressSelected(!isradioAddressSelected)
+    setfullAddress(suggestrdAddress)
+  }
+
   return (
     <>
       <div className="row">
         <div className="col-md-7">
-          <h3 className="m-4">Delivery Address</h3>
+          <h3 className="m-4 text-center">Delivery Address</h3>
+          <br />
+          <br />
+          <hr />
+          <br />
           <div className="w-50 d-inline-block pl-3 bg-black ml-4">
+            {suggestrdAddress && suggestrdAddress.length && (
+              <>
+                <h5 className="text mb-3 d-block ml-5 ">Select Address</h5>
+                <Card style={{width: "300px"}} className="mb-3">
+                  <Checkbox
+                    onChange={handleRadioAddress}
+                    checked={isradioAddressSelected}
+                  >
+                    {<p className="text">{suggestrdAddress}</p>}
+                  </Checkbox>
+                </Card>
+              </>
+            )}
+            <br />
+
+            <br />
+            <h5 className="text mb-3 d-block ml-5">Add A New Address</h5>
             <form onSubmit={handleFormSubmit}>
               <lable className="font-weight-bold text-capitalize text-truncate">
                 <h6>First Name</h6>
