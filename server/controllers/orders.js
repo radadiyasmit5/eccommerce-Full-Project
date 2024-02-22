@@ -58,7 +58,9 @@ exports.getOrders = async (req, res) => {
   try {
     const user = await User.find({email: email}).exec()
     if (user && user[0]) {
-      orders = await Orders.find({orderdBy: user[0]._id}).populate("products.product").exec()
+      orders = await Orders.find({orderdBy: user[0]._id})
+        .populate("products.product")
+        .exec()
     }
   } catch (error) {
     console.log(error)
@@ -67,4 +69,34 @@ exports.getOrders = async (req, res) => {
   }
 
   res.json(orders)
+}
+
+exports.getallOrders = async (req, res) => {
+  try {
+    const orders = await Orders.find({})
+      .sort("-orderDate")
+      .populate("products.product")
+      .exec()
+    if (orders) {
+      res.json(orders)
+    } else res.status(500).send("There is some issue while fetching a")
+  } catch (error) {
+    res.status(500).send("There is some issue while fetching the Orders")
+  }
+}
+
+exports.updateOrderStatus = async (req, res) => {
+  const {orderId, orderStatus} = req.body.orderDetails
+  const response = await Orders.findOneAndUpdate(
+    {_id: orderId},
+    {orderStatus: orderStatus},
+    {new: true}
+  )
+  if (response) {
+    res.json(response)
+    return
+  } else {
+    res.status(500).send("There is some issue updating the order Status")
+    return
+  }
 }
