@@ -267,7 +267,7 @@ const handleRating = async (req, res, stars) => {
   await product
     .aggregate([
       {
-        $project: {
+        $project: { 
           document: "$$ROOT",
           floorAverage: {
             $floor: {$avg: "$ratings.star"},

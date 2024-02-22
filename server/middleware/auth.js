@@ -16,6 +16,7 @@ exports.authcheck = async (req, res, next) => {
         iserr = true
         return
       })
+
     req.user = firebaseadmin
     !iserr && next()
   } catch (err) {
